@@ -160,7 +160,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pch\pch.h" />
-    <ClInclude Include="src\Header.h" />
+    <ClInclude Include="src\Point.h" />
+    <ClInclude Include="src\Source.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch\pch.cpp">
@@ -169,6 +170,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Point.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Source.cpp" />
   </ItemGroup>

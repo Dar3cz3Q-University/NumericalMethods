@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Source.h"
 
 double horner(const double x, const double* a, const unsigned int n)
@@ -23,19 +23,21 @@ double hornerN(const double x, const double* b, const double* xn, const unsigned
     return result;
 }
 
-double* WspN_WspNat(const double* b, const double* x, const unsigned int n)
+double* WspNew_WspNat(const double* b, const double* x, const unsigned int n)
 {
-    double* a = new double[n];
+    //TODO Dodać zamianę kolejności w tabelki
+    double* result = new double[n];
 
-    a[n - 1] = b[n - 1];
+    result[n - 1] = b[n - 1];
+
     for (int i = n - 2; i >= 0; i--) {
-        a[i] = b[i];
+        result[i] = b[i];
         for (int j = i; j < n - 1; j++) {
-            a[j] -= x[i] * a[j + 1];
+            result[j] -= x[i] * result[j + 1];
         }
     }
 
-    return a;
+    return result;
 }
 
 double lagrange(const Point* nodes, const double x, const unsigned int n)
@@ -52,6 +54,50 @@ double lagrange(const Point* nodes, const double x, const unsigned int n)
 
         result += term;
     }
+
+    return result;
+}
+
+double* newton(const Point* nodes, const unsigned int n)
+{
+    double** quotient_table = new double*[n];
+
+    for (int i = 0; i < n; i++) {
+        quotient_table[i] = new double[n];
+
+        quotient_table[i][0] = nodes[i].y;
+    }
+
+    for (int j = 1; j < n; j++) {
+        for (int i = 0; i < n - j; i++) {
+            quotient_table[i][j] = (quotient_table[i + 1][j - 1] - quotient_table[i][j - 1]) / (nodes[i + j].x - nodes[i].x);
+        }
+    }
+
+    // Print
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n - i; j++) {
+            std::cout << quotient_table[i][j] << "\t";
+        }
+        std::cout << "\n";
+    }
+
+    // Copy to final table
+
+    double* result = new double[n];
+
+    for (int i = 0; i < n; i++) {
+        result[i] = quotient_table[0][i];
+    }
+
+    // CleanUp
+
+    for (int i = 0; i < n; i++) {
+        delete[] quotient_table[i];
+    }
+
+    delete[] quotient_table;
 
     return result;
 }

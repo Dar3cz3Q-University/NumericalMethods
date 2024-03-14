@@ -20,7 +20,7 @@ double hornerN(const double x, const double* b, const double* xn, const unsigned
 /// <param name="x">Wskaznik to tablicy wspolrzednych x punktow</param>
 /// <param name="n">Ilosc wspolczynnikow (stopien wielomianu + 1)</param>
 /// <returns>Wskaznik do tablicy obliczonych wspolczynnikow</returns>
-double* WspN_WspNat(const double* b, const double* x, const unsigned int n);
+double* WspNew_WspNat(const double* b, const double* x, const unsigned int n);
 
 /// <summary>Funkcja obliczajaca interpolacje Lagranga</summary>
 /// <param name="nodes">Tablica zawierajacy wezly interpolacji. Wezel interpolacji to klasa Point</param>
@@ -28,3 +28,9 @@ double* WspN_WspNat(const double* b, const double* x, const unsigned int n);
 /// <param name="n">Liczba wezlow interpolacji</param>
 /// <returns>Obliczona wartosc funkcji w punkcie x</returns>
 double lagrange(const Point* nodes, const double x, const unsigned int n);
+
+/// <summary>Funkcja obliczajaca interpolacje Newtona</summary>
+/// <param name="nodes">Tablica zawierajacy wezly interpolacji. Wezel interpolacji to klasa Point</param>
+/// <param name="n">Liczba wezlow interpolacji</param>
+/// <returns>Wskaznik do tablicy obliczonych wspolczynnikow Newtona</returns>
+double* newton(const Point* nodes, const unsigned int n);

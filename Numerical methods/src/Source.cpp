@@ -25,7 +25,6 @@ double hornerN(const double x, const double* b, const double* xn, const unsigned
 
 double* WspNew_WspNat(const double* b, const double* x, const unsigned int n)
 {
-    //TODO Dodać zamianę kolejności w tabelki
     double* result = new double[n];
 
     result[n - 1] = b[n - 1];
@@ -75,7 +74,6 @@ double* newton(const Point* nodes, const unsigned int n)
     }
 
     // Print
-    
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n - i; j++) {
             std::cout << quotient_table[i][j] << "\t";
@@ -84,7 +82,6 @@ double* newton(const Point* nodes, const unsigned int n)
     }
 
     // Copy to final table
-
     double* result = new double[n];
 
     for (int i = 0; i < n; i++) {
@@ -92,7 +89,6 @@ double* newton(const Point* nodes, const unsigned int n)
     }
 
     // CleanUp
-
     for (int i = 0; i < n; i++) {
         delete[] quotient_table[i];
     }
@@ -100,4 +96,56 @@ double* newton(const Point* nodes, const unsigned int n)
     delete[] quotient_table;
 
     return result;
+}
+
+bool gauss(int n, double* AB, double* x)
+{
+    int ts = n + 1;
+    double m;
+
+    // Etap eleminacji
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int j = i + 1; j < n; j++)
+        {
+            if (fabs(AB[(i * ts) + i]) < eps) {
+                return false;
+            }
+
+            m = -AB[(j * ts) + i] / AB[(i * ts) + i];
+
+            // Przy k = i + 1 wynikowa tablica nie ma samych 0 a wartosci ktore pozniej nie sa brane pod uwage
+            // Przy k = i widac 0
+            for (int k = i; k <= n; k++) {
+                AB[(j * ts) + k] += m * AB[(i * ts) + k];
+            }
+        }
+    }
+
+    // Wyświetlenie tablicy
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 5; j++) {
+            std::cout << AB[(i * ts) + j] << " ";
+        }
+        std::cout << "\n";
+    }
+    std::cout << "\n";
+
+    double s;
+
+    // Etap obliczania 
+    for (int i = n - 1; i >= 0; i--)
+    {
+        s = AB[(i * ts) + n];
+
+        for (int j = n - 1; j >= i + 1; j--) {
+            s -= AB[(i * ts) + j] * x[j];
+        }
+
+        if (fabs(AB[(i * ts) + i]) < eps) { 
+            return false; 
+        }
+
+        x[i] = s / AB[(i * ts) + i];
+    }
 }

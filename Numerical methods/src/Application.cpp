@@ -50,7 +50,7 @@ static void zadanie4() {
 	points1[4] = Point(2, 2);
 
 	std::ofstream file;
-	file.open("results.txt");
+	file.open("Lagrange_Results.txt");
 
 	for (double i = -2; i <= 2.01; i += 0.01) {
 		double y = lagrange(points1, i, 5);
@@ -63,11 +63,11 @@ static void zadanie4() {
 static void zadanie5() {
 	Point points2[5];
 
-	points2[0] = Point(1, 1);
-	points2[1] = Point(2, 4);
-	points2[2] = Point(3, 9);
-	points2[3] = Point(4, 16);
-	points2[4] = Point(5, 25);
+	points2[0] = Point(-2, 5);
+	points2[1] = Point(-1, -2);
+	points2[2] = Point(0, 4);
+	points2[3] = Point(1, -2);
+	points2[4] = Point(2, 2);
 
 	double* result2 = newton(points2, 5);
 
@@ -80,9 +80,35 @@ static void zadanie5() {
 	delete[] result2;
 }
 
+static void zadanie() {
+	int n = 4;
+	int m = n + 1;
+
+	double* tab = new double[n * m] {
+		2, 4, 2, 1, 10,
+		2, 2, 3, 3, 6,
+		4, 2, 2, 1, 6,
+		0, 2, 1, 1, 4
+	};
+
+	double* results = new double[n];
+
+	if (gauss(n, tab, results)) {
+		for (int i = 0; i < n; i++) {
+			std::cout << "x" << i + 1 << " = " << results[i] << "\n";
+		}
+	}
+	else {
+		std::cout << "Mozliwe dzielenie przez 0\n";
+	}
+
+	delete[] tab;
+	delete[] results;
+}
+
 int main(int argc, int** argv) {
 	
-	
+	zadanie();
 
 	return 0;
 }

@@ -4,6 +4,13 @@
 const double eps = 1e-12;
 
 /// <summary>
+/// Funkcja do wyswietlenia macierzy
+/// </summary>
+/// <param name="matrix">Wskaznik do macierzy</param>
+/// <param name="n">Wymiar macierzy</param>
+void printMatrix(const double* matrix, const unsigned int n);
+
+/// <summary>
 /// Funkcja obliczajaca wartosc wielomianu w postaci naturalnej dla podanego x korzystajac ze schematu Hornera
 /// </summary>
 /// <param name="x">Argument dla ktorej obliczamy wartosc wielomianu</param>
@@ -51,8 +58,28 @@ double* newton(const Point* nodes, const unsigned int n);
 /// <summary>
 /// Funkcja obliczajaca eliminacje Gaussa
 /// </summary>
-/// <param name="n">liczba niewiadomych</param>
-/// <param name="AB">wskaznik do macierzy o wielkosci n * (n + 1) zawierajacy </param>
-/// <param name="x">wskaznik do tablicy w ktorej znajda sie obliczone wartosci</param>
-/// <returns>false jesli mozliwe byloby dzielenie przez 0. W innym wypadku true</returns>
-bool gauss(int n, double* AB, double* x);
+/// <param name="A">Wskaznik do macierzy o wielkosci n * n zawierajacy wspolczynniki przy niewiadomych</param>
+/// <param name="b">Wskaznik do macierzy o wielkosci n zawierajacy wartosci wynikowe</param>
+/// <param name="n">Liczba niewiadomych</param>
+/// <returns>Wskaznik do tablicy obliczonych wartosci</returns>
+double* gauss(const double* A, const double* b, const unsigned int n);
+
+/// <summary>
+/// Funkcja obliczajaca eliminacje Gaussa korzystajaca z Pivotingu
+/// </summary>
+/// <param name="A">Wskaznik do macierzy o wielkosci n * n zawierajacy wspolczynniki przy niewiadomych</param>
+/// <param name="b">Wskaznik do macierzy o wielkosci n zawierajacy wartosci wynikowe</param>
+/// <param name="n">Liczba niewiadomych</param>
+/// <returns>Wskaznik do tablicy obliczonych wartosci</returns>
+double* gauss_crout(const double* A, const double* b, const unsigned int n);
+
+/// <summary>
+/// Funkcja dzielaca macierz A na dwie macierze trojkatne L i U
+/// </summary>
+/// <param name="A">Wskaznik do macierzy do podzielenia</param>
+/// <param name="L">Wskaznik do macierzy w ktorej znajdzie sie macierz dolnotrojkatna</param>
+/// <param name="U">Wskaznik do macierzy w ktorej znajdzie sie macierz gornotrojkatna</param>
+/// <param name="n">Wymiar macierzy</param>
+/// <returns>false jesli nie mozna wyznaczyc rozkladu w przeciwnym wypadku true</returns>
+bool doolittle(const double* A, double* L, double* U, const unsigned int n);
+

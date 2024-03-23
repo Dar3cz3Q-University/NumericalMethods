@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Source.h"
 #include "Point.h"
 
@@ -80,20 +80,33 @@ static void zadanie5() {
 	delete[] result2;
 }
 
-static void zadanie() {
-	int n = 4;
+static void zadanie6() {
+	int n = 5;
 	int m = n + 1;
 
-	double* tab = new double[n * m] {
-		2, 4, 2, 1, 10,
-		2, 2, 3, 3, 6,
-		4, 2, 2, 1, 6,
-		0, 2, 1, 1, 4
+	// Tablica wspolczynnikow
+	double* A = new double[n * n] {
+		1, -3, 4, 6.8, 9,
+		-3, 2, 4.6, 6.3, -10,
+		2, -1, 2.8, -8.4, -5,
+		-6, 2, 7, -0.5, -0.9, 
+		5, -2, -0.5, 12, -4
 	};
 
-	double* results = new double[n];
+	// Tablica wynikow
+	double* b = new double[n] {
+		74.64,
+		-40.26,
+		-2.32,
+		12.6,
+		-8.9
+	};
 
-	if (gauss(n, tab, results)) {
+	// Tablica obliczonych wartosci
+	double* results = gauss_crout(A, b, n);
+
+	if (results != nullptr) {
+		// Wyświetlenie wynikow
 		for (int i = 0; i < n; i++) {
 			std::cout << "x" << i + 1 << " = " << results[i] << "\n";
 		}
@@ -102,8 +115,39 @@ static void zadanie() {
 		std::cout << "Mozliwe dzielenie przez 0\n";
 	}
 
-	delete[] tab;
+	delete[] A;
+	delete[] b;
 	delete[] results;
+}
+
+static void zadanie() {
+	int n = 3;
+
+	double* A = new double[n * n] {
+		5, 3, 2,
+		1, 2, 0,
+		3, 0, 4
+	};
+	double* L = new double[n * n] {0};
+	double* U = new double[n * n] {0};
+
+	if (!doolittle(A, L, U, n)) {
+		std::cout << "Nie mozna rozlozyc macierzy\n";
+	}
+	else {
+		std::cout << "Macierz wejsciowa:\n";
+		printMatrix(A, n);
+
+		std::cout << "Macierz gornotrojkatna:\n";
+		printMatrix(U, n);
+
+		std::cout << "Macierz dolnotrojkatna:\n";
+		printMatrix(L, n);
+	}
+
+	delete[] A;
+	delete[] L;
+	delete[] U;
 }
 
 int main(int argc, int** argv) {

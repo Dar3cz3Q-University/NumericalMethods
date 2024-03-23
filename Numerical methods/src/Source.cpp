@@ -93,15 +93,10 @@ double* newton(const Point* nodes, const unsigned int n)
 
     // Copy to final table
     double* result = new double[n];
-
-    for (int i = 0; i < n; i++) {
-        result[i] = quotient_table[0][i];
-    }
-
+    for (int i = 0; i < n; i++) result[i] = quotient_table[0][i];
+    
     // CleanUp
-    for (int i = 0; i < n; i++) {
-        delete[] quotient_table[i];
-    }
+    for (int i = 0; i < n; i++) delete[] quotient_table[i];
 
     delete[] quotient_table;
 
@@ -110,7 +105,7 @@ double* newton(const Point* nodes, const unsigned int n)
 
 double* gauss(const double* A, const double* b, const unsigned int n)
 {
-    // ts zmienna do "przeskoku" w tablicy jednowymiarowej
+    // ts - zmienna do "przeskoku" w tablicy jednowymiarowej
     int ts = n + 1;
     double* AB = new double[n * ts];
 
@@ -122,16 +117,13 @@ double* gauss(const double* A, const double* b, const unsigned int n)
         AB[(i * ts) + n] = b[i];
     }
 
-    double m;
-
     // Etap eliminacji
+    double m;
     for (int i = 0; i < n - 1; i++)
     {
         for (int j = i + 1; j < n; j++)
         {
-            if (fabs(AB[(i * ts) + i]) < eps) {
-                return nullptr;
-            }
+            if (fabs(AB[(i * ts) + i]) < eps) return nullptr;
 
             m = -AB[(j * ts) + i] / AB[(i * ts) + i];
 
@@ -141,11 +133,9 @@ double* gauss(const double* A, const double* b, const unsigned int n)
         }
     }
 
-    double s;
-
-    double* x = new double[n];
-
     // Etap obliczania 
+    double s;
+    double* x = new double[n];
     for (int i = n - 1; i >= 0; i--)
     {
         s = AB[(i * ts) + n];
@@ -154,13 +144,12 @@ double* gauss(const double* A, const double* b, const unsigned int n)
             s -= AB[(i * ts) + j] * x[j];
         }
 
-        if (fabs(AB[(i * ts) + i]) < eps) {
-            return nullptr;
-        }
+        if (fabs(AB[(i * ts) + i]) < eps) return nullptr;
 
         x[i] = s / AB[(i * ts) + i];
     }
 
+    // Clean Up
     delete[] AB;
 
     return x;
@@ -168,76 +157,66 @@ double* gauss(const double* A, const double* b, const unsigned int n)
 
 double* gauss_crout(const double* A, const double* b, const unsigned int n)
 {
-    //// ts zmienna do "przeskoku" w tablicy jednowymiarowej
-    //int ts = n + 1;
-    //double* AB = new double[n * ts];
-    //int* w = new int[ts];
+    // ts zmienna do "przeskoku" w tablicy jednowymiarowej
+    int ts = n + 1;
+    double* AB = new double[n * ts];
+    int* w = new int[ts];
 
-    //// Przepisanie danych z tablic A i b do AB
-    //for (int i = 0; i < n; i++) {
-    //    for (int j = 0; j < n; j++) {
-    //        AB[(i * ts) + j] = A[(i * n) + j];
-    //    }
-    //    AB[(i * ts) + n] = b[i];
-    //}
+    // Przepisanie danych z tablic A i b do AB
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            AB[(i * ts) + j] = A[(i * n) + j];
+        }
+        AB[(i * ts) + n] = b[i];
+    }
 
-    //// Przygotowanie wektora z numerami kolumn
-    //for (int i = 0; i < ts; i++) { w[i] = i; }
+    // Przygotowanie wektora z numerami kolumn
+    for (int i = 0; i < ts; i++) w[i] = i;
 
-    //double m;
+    // Etap eliminacji
+    double m;
 
-    //// Etap eliminacji
-    //for (int i = 0; i < n - 1; i++)
-    //{
-    //    double max = -DBL_MAX;
-    //    int v = 0;
+    for (int i = 0; i < n - 1; i++)
+    {
+        int v = i;
+        for (int j = i + 1; j < n; j++)
+        {
+            if (fabs(AB[(i * ts) + w[v]]) < fabs(AB[(i * ts) + w[j]])) v = j;
+            std::swap(w[v], w[i]);
+        }
 
-    //    for (int j = i; j < ts; j++)
-    //    {
-    //        if (fabs(AB[(i * ts) + j]) > max) {
-    //            max = fabs(AB[(i * ts) + j]);
-    //            v = j;
-    //        }
-    //    }
+        for (int j = i + 1; j < n; j++) {
+            if (fabs(AB[(i * ts) + w[i]]) < eps) return nullptr;
 
-    //    std::swap(w[i], w[v]);
+            m = -AB[(j * ts) + w[i]] / AB[(i * ts) + w[i]];
 
-    //    if (fabs(AB[(w[i] * ts) + w[i]]) < eps) {
-    //        return nullptr;
-    //    }
+            for (int k = i + 1; k <= n; k++) {
+                AB[(j * ts) + w[k]] += m * AB[(i * ts) + w[k]];
+            }
+        }
+    }
 
-    //    m = -AB[(j * ts) + i] / AB[(i * ts) + i];
+    // Etap obliczania 
+    double s;
+    double* x = new double[n];
 
-    //    for (int k = i + 1; k <= n; k++) {
-    //        AB[(j * ts) + k] += m * AB[(i * ts) + k];
-    //    }
-    //}
+    for (int i = n - 1; i >= 0; i--)
+    {
+        if (fabs(AB[(i * ts) + w[i]]) < eps) return nullptr;
 
-    //double s;
+        s = AB[(i * ts) + n];
 
-    //double* x = new double[n];
+        for (int j = n - 1; j >= i + 1; j--) {
+            s -= AB[(i * ts) + w[j]] * x[w[j]];
+        }
 
-    //// Etap obliczania 
-    ///*for (int i = n - 1; i >= 0; i--)
-    //{
-    //    s = AB[(i * ts) + n];
+        x[w[i]] = s / AB[(i * ts) + w[i]];
+    }
 
-    //    for (int j = n - 1; j >= i + 1; j--) {
-    //        s -= AB[(i * ts) + j] * x[j];
-    //    }
+    delete[] w;
+    delete[] AB;
 
-    //    if (fabs(AB[(i * ts) + i]) < eps) {
-    //        return nullptr;
-    //    }
-
-    //    x[i] = s / AB[(i * ts) + i];
-    //}*/
-
-    //delete[] w;
-    //delete[] AB;
-
-    //return x;
-    return nullptr;
+    return x;
 }
 
 bool doolittle(const double* A, double* L, double* U, const unsigned int n)
@@ -258,9 +237,7 @@ bool doolittle(const double* A, double* L, double* U, const unsigned int n)
                 sum += L[(j * n) + k] * U[(k * n) + i];
             }
 
-            if (fabs(U[(i * n) + i]) < eps) {
-                return false;
-            }
+            if (fabs(U[(i * n) + i]) < eps) return false;
 
             L[(j * n) + i] = (A[(j * n) + i] - sum) / U[(i * n) + i];
         }

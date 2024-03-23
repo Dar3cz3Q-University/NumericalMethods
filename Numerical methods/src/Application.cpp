@@ -152,7 +152,7 @@ static void zadanie() {
 
 int main(int argc, int** argv) {
 	
-	zadanie();
+	zadanie6();
 
 	return 0;
 }

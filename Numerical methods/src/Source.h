@@ -11,6 +11,32 @@ const double eps = 1e-12;
 void printMatrix(const double* matrix, const unsigned int n);
 
 /// <summary>
+/// Funkcja do skopiowania macierzy
+/// </summary>
+/// <param name="matrix">Wskaznik do macierzy</param>
+/// <param name="n">Wymiar macierzy</param>
+/// <returns>Wskaznik do nowej macierzy</returns>
+double* copyMatrix(const double* matrix, const unsigned int n);
+
+/// <summary>
+/// Funkcja do mnozenia macierzy kwadratowych
+/// </summary>
+/// <param name="matrix1">Wskaznik do macierzy</param>
+/// <param name="matrix2">Wskaznik do macierzy</param>
+/// <param name="n">Wymiar macierzy</param>
+/// <returns>Wskaznik do nowej macierzy</returns>
+double* multiplyMatrix(const double* matrix1, const double* matrix2, const unsigned int n);
+
+/// <summary>
+/// Funkcja do sprawdzenia czy macierze sa sobie rowne
+/// </summary>
+/// <param name="matrix1">Wskaznik do pierwszej macierzy</param>
+/// <param name="matrix2">Wskaznik do drugiej macierzy</param>
+/// <param name="n">Wymiar macierzy</param>
+/// <returns>True jest rowne, w przeciwnym wypadku false</returns>
+bool isMatrixEqual(const double* matrix1, const double* matrix2, const unsigned int n);
+
+/// <summary>
 /// Funkcja obliczajaca wartosc wielomianu w postaci naturalnej dla podanego x korzystajac ze schematu Hornera
 /// </summary>
 /// <param name="x">Argument dla ktorej obliczamy wartosc wielomianu</param>

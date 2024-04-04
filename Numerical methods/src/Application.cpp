@@ -41,19 +41,19 @@ static void zadanie3() {
 }
 
 static void zadanie4() {
-	Point points1[5];
+	Point points[5];
 
-	points1[0] = Point(-2, 5);
-	points1[1] = Point(-1, -2);
-	points1[2] = Point(0, 4);
-	points1[3] = Point(1, -7);
-	points1[4] = Point(2, 2);
+	points[0] = Point(-2, 5);
+	points[1] = Point(-1, -2);
+	points[2] = Point(0, 4);
+	points[3] = Point(1, -7);
+	points[4] = Point(2, 2);
 
 	std::ofstream file;
 	file.open("Lagrange_Results.txt");
 
 	for (double i = -2; i <= 2.01; i += 0.01) {
-		double y = lagrange(points1, i, 5);
+		double y = lagrange(points, i, 5);
 		file << i << ", " << y << "\n";
 	}
 
@@ -61,23 +61,23 @@ static void zadanie4() {
 }
 
 static void zadanie5() {
-	Point points2[5];
+	Point points[5];
 
-	points2[0] = Point(-2, 5);
-	points2[1] = Point(-1, -2);
-	points2[2] = Point(0, 4);
-	points2[3] = Point(1, -2);
-	points2[4] = Point(2, 2);
+	points[0] = Point(-2, 5);
+	points[1] = Point(-1, -2);
+	points[2] = Point(0, 4);
+	points[3] = Point(1, -2);
+	points[4] = Point(2, 2);
 
-	double* result2 = newton(points2, 5);
+	double* result = newton(points, 5);
 
 	std::cout << "\n";
 
 	for (int i = 0; i < 5; i++) {
-		std::cout << result2[i] << "\n";
+		std::cout << result[i] << "\n";
 	}
 
-	delete[] result2;
+	delete[] result;
 }
 
 static void zadanie6() {
@@ -120,24 +120,23 @@ static void zadanie6() {
 	delete[] results;
 }
 
-static void zadanie() {
+static void zadanie7() {
 	int n = 3;
 
-	double* A = new double[n * n] {
-		5, 3, 2,
-		1, 2, 0,
-		3, 0, 4
-	};
+	double* check;
 	double* L = new double[n * n] {0};
 	double* U = new double[n * n] {0};
 
-	if (!doolittle(A, L, U, n)) {
+	double* A1 = new double[n * n] {
+		60, 30, 20,
+		30, 20, 15,
+		20, 15, 12
+	};
+	std::cout << "Macierz A1\n";
+	if (!doolittle(A1, L, U, n)) {
 		std::cout << "Nie mozna rozlozyc macierzy\n";
 	}
 	else {
-		std::cout << "Macierz wejsciowa:\n";
-		printMatrix(A, n);
-
 		std::cout << "Macierz gornotrojkatna:\n";
 		printMatrix(U, n);
 
@@ -145,14 +144,60 @@ static void zadanie() {
 		printMatrix(L, n);
 	}
 
-	delete[] A;
+	check = multiplyMatrix(L, U, n);
+	std::cout << (isMatrixEqual(A1, check, n) ? "Rozklad poprawny" : "Cos poszlo nie tak");
+
+	delete[] A1;
+	delete[] check;
+
+	double* A2 = new double[n * n] {
+		3, 0, 1,
+		0, -1, 3,
+		1, 3, 0
+	};
+	std::cout << "\nMacierz A2\n";
+	if (!doolittle(A2, L, U, n)) {
+		std::cout << "Nie mozna rozlozyc macierzy\n";
+	}
+	else {
+		std::cout << "Macierz gornotrojkatna:\n";
+		printMatrix(U, n);
+
+		std::cout << "Macierz dolnotrojkatna:\n";
+		printMatrix(L, n);
+	}
+
+	check = multiplyMatrix(L, U, n);
+	std::cout << (isMatrixEqual(A2, check, n) ? "Rozklad poprawny" : "Cos poszlo nie tak");
+
+	delete[] A2;
+	delete[] check;
+
+	double* A3 = new double[n * n] {
+		2, 1, -2,
+		4, 2, -1,
+		6, 3, 11
+	};
+	std::cout << "\nMacierz A3\n";
+	if (!doolittle(A3, L, U, n)) {
+		std::cout << "Nie mozna rozlozyc macierzy\n";
+	}
+	else {
+		std::cout << "Macierz gornotrojkatna:\n";
+		printMatrix(U, n);
+
+		std::cout << "Macierz dolnotrojkatna:\n";
+		printMatrix(L, n);
+	}
+	delete[] A3;
+
 	delete[] L;
 	delete[] U;
 }
 
 int main(int argc, int** argv) {
 	
-	zadanie6();
+	zadanie7();
 
 	return 0;
 }

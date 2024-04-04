@@ -3,12 +3,74 @@
 
 void printMatrix(const double* matrix, const unsigned int n)
 {
+    if (matrix == nullptr) {
+        std::cout << "Niepoprawny wskaznik do tablicy\n";
+        return;
+    }
+
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             std::cout << matrix[(i * n) + j] << "\t";
         }
         std::cout << "\n";
     }
+}
+
+double* copyMatrix(const double* matrix, const unsigned int n)
+{
+    if (matrix == nullptr) {
+        std::cout << "Niepoprawny wskaznik do tablicy\n";
+        return nullptr;
+    }
+
+    double* result = new double[n * n];
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            result[(i * n) + j] = matrix[(i * n) + j];
+        }
+    }
+
+    return result;
+}
+
+double* multiplyMatrix(const double* matrix1, const double* matrix2, const unsigned int n)
+{
+    if (matrix1 == nullptr || matrix2 == nullptr) {
+        std::cout << "Niepoprawny wskaznik do tablicy\n";
+        return nullptr;
+    }
+
+    double* result = new double[n * n] {0};
+    double sum;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            sum = 0;
+            for (int k = 0; k < n; k++) {
+                sum += matrix1[(i * n) + k] * matrix2[(k * n) + j];
+            }
+            result[(i * n) + j] = sum;
+        }
+    }
+
+    return result;
+}
+
+bool isMatrixEqual(const double* matrix1, const double* matrix2, const unsigned int n)
+{
+    if (matrix1 == nullptr || matrix2 == nullptr) {
+        std::cout << "Niepoprawny wskaznik do tablicy\n";
+        return false;
+    }
+
+    for (int i = 0; i < n * n; i++) {
+        if (matrix1[i] != matrix2[i]) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 double horner(const double x, const double* a, const unsigned int n)
@@ -69,34 +131,21 @@ double lagrange(const Point* nodes, const double x, const unsigned int n)
 
 double* newton(const Point* nodes, const unsigned int n)
 {
-    double** quotient_table = new double*[n];
+    double* quotient_table = new double[n * n];
 
     for (int i = 0; i < n; i++) {
-        quotient_table[i] = new double[n];
-
-        quotient_table[i][0] = nodes[i].y;
+        quotient_table[(i * n)] = nodes[i].y;
     }
 
     for (int j = 1; j < n; j++) {
         for (int i = 0; i < n - j; i++) {
-            quotient_table[i][j] = (quotient_table[i + 1][j - 1] - quotient_table[i][j - 1]) / (nodes[i + j].x - nodes[i].x);
+            quotient_table[(i * n) + j] = (quotient_table[((i + 1) * n) + j - 1] - quotient_table[(i * n) + j - 1]) / (nodes[i + j].x - nodes[i].x);
         }
-    }
-
-    // Print
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n - i; j++) {
-            std::cout << quotient_table[i][j] << "\t";
-        }
-        std::cout << "\n";
     }
 
     // Copy to final table
     double* result = new double[n];
-    for (int i = 0; i < n; i++) result[i] = quotient_table[0][i];
-    
-    // CleanUp
-    for (int i = 0; i < n; i++) delete[] quotient_table[i];
+    for (int i = 0; i < n; i++) result[i] = quotient_table[i];
 
     delete[] quotient_table;
 
@@ -221,6 +270,27 @@ double* gauss_crout(const double* A, const double* b, const unsigned int n)
 
 bool doolittle(const double* A, double* L, double* U, const unsigned int n)
 {
+    // Wypelnienie zerami
+    for (int i = 0; i < n * n; i++) {
+        L[i] = 0;
+        U[i] = 0;
+    }
+
+    // Stworzenie wektora zawierajacego indeksy tablicy
+    int* w = new int[n];
+    for (int i = 0; i < n; i++) {
+        w[i] = i;
+    }
+
+    // Sprawdzenie diagonalnej i zamiana wierszy
+    // TODO: Funkcja moze rekurencyjna ktora dobrze sprawdzi jaka ma byc kolejnosc wierszy
+    for (int i = 0; i < n; i++) {
+        if (A[(i * n) + i] == 0) {
+            std::swap(w[i], w[i - 1]);
+        }
+    }
+
+    // Obliczenie macierzy L i U
     double sum;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j <= i; j++) {
@@ -228,7 +298,7 @@ bool doolittle(const double* A, double* L, double* U, const unsigned int n)
             for (int k = 0; k < j; k++) {
                 sum += L[(j * n) + k] * U[(k * n) + i];
             }
-            U[(j * n) + i] = A[(j * n) + i] - sum;
+            U[(j * n) + i] = A[(w[j] * n) + i] - sum;
         }
 
         for (int j = i + 1; j < n; j++) {
@@ -239,10 +309,16 @@ bool doolittle(const double* A, double* L, double* U, const unsigned int n)
 
             if (fabs(U[(i * n) + i]) < eps) return false;
 
-            L[(j * n) + i] = (A[(j * n) + i] - sum) / U[(i * n) + i];
+            L[(j * n) + i] = (A[(w[j] * n) + i] - sum) / U[(i * n) + i];
         }
-
     }
 
+    // Wypelnienie diagonali macierzy L jedynkami
+    for (int i = 0; i < n; i++) {
+        L[(i * n) + i] = 1;
+    }
+
+    delete[] w;
+      
     return true;
 }

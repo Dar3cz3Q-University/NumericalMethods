@@ -4,39 +4,6 @@
 const double eps = 1e-12;
 
 /// <summary>
-/// Funkcja do wyswietlenia macierzy
-/// </summary>
-/// <param name="matrix">Wskaznik do macierzy</param>
-/// <param name="n">Wymiar macierzy</param>
-void printMatrix(const double* matrix, const unsigned int n);
-
-/// <summary>
-/// Funkcja do skopiowania macierzy
-/// </summary>
-/// <param name="matrix">Wskaznik do macierzy</param>
-/// <param name="n">Wymiar macierzy</param>
-/// <returns>Wskaznik do nowej macierzy</returns>
-double* copyMatrix(const double* matrix, const unsigned int n);
-
-/// <summary>
-/// Funkcja do mnozenia macierzy kwadratowych
-/// </summary>
-/// <param name="matrix1">Wskaznik do macierzy</param>
-/// <param name="matrix2">Wskaznik do macierzy</param>
-/// <param name="n">Wymiar macierzy</param>
-/// <returns>Wskaznik do nowej macierzy</returns>
-double* multiplyMatrix(const double* matrix1, const double* matrix2, const unsigned int n);
-
-/// <summary>
-/// Funkcja do sprawdzenia czy macierze sa sobie rowne
-/// </summary>
-/// <param name="matrix1">Wskaznik do pierwszej macierzy</param>
-/// <param name="matrix2">Wskaznik do drugiej macierzy</param>
-/// <param name="n">Wymiar macierzy</param>
-/// <returns>True jest rowne, w przeciwnym wypadku false</returns>
-bool isMatrixEqual(const double* matrix1, const double* matrix2, const unsigned int n);
-
-/// <summary>
 /// Funkcja obliczajaca wartosc wielomianu w postaci naturalnej dla podanego x korzystajac ze schematu Hornera
 /// </summary>
 /// <param name="x">Argument dla ktorej obliczamy wartosc wielomianu</param>
@@ -108,4 +75,35 @@ double* gauss_crout(const double* A, const double* b, const unsigned int n);
 /// <param name="n">Wymiar macierzy</param>
 /// <returns>false jesli nie mozna wyznaczyc rozkladu w przeciwnym wypadku true</returns>
 bool doolittle(const double* A, double* L, double* U, const unsigned int n);
+
+/// <summary>
+/// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda prostokatow
+/// </summary>
+/// <param name="x0">Poczatek przedzialu calkowania</param>
+/// <param name="xn">Koniec przedzialu calkowania</param>
+/// <param name="n">Dokladnosc</param>
+/// <param name="variant">Wariant metody</param>
+/// <param name="function">Wskaznik funkcji do calkowania</param>
+/// <returns>Obliczona wartosc calki</returns>
+double integral_rectangleMethod(const double x0, const double xn, const unsigned int n, const unsigned int variant,  double (*function)(double));
+
+/// <summary>
+/// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda trapezow
+/// </summary>
+/// <param name="x0">Poczatek przedzialu calkowania</param>
+/// <param name="xn">Koniec przedzialu calkowania</param>
+/// <param name="n">Dokladnosc</param>
+/// <param name="function">Wskaznik funkcji do calkowania</param>
+/// <returns>Obliczona wartosc calki</returns>
+double integral_trapezeMethod(const double x0, const double xn, const unsigned int n, double (*function)(double));
+
+/// <summary>
+/// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda Simpsona
+/// </summary>
+/// <param name="x0">Poczatek przedzialu calkowania</param>
+/// <param name="xn">Koniec przedzialu calkowania</param>
+/// <param name="n">Dokladnosc</param>
+/// <param name="function">Wskaznik funkcji do calkowania</param>
+/// <returns>Obliczona wartosc calki</returns>
+double integral_simpsonMethod(const double x0, const double xn, const unsigned int n, double (*function)(double));
 

@@ -1,77 +1,6 @@
 ﻿#include "pch.h"
 #include "Source.h"
-
-void printMatrix(const double* matrix, const unsigned int n)
-{
-    if (matrix == nullptr) {
-        std::cout << "Niepoprawny wskaznik do tablicy\n";
-        return;
-    }
-
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            std::cout << matrix[(i * n) + j] << "\t";
-        }
-        std::cout << "\n";
-    }
-}
-
-double* copyMatrix(const double* matrix, const unsigned int n)
-{
-    if (matrix == nullptr) {
-        std::cout << "Niepoprawny wskaznik do tablicy\n";
-        return nullptr;
-    }
-
-    double* result = new double[n * n];
-
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            result[(i * n) + j] = matrix[(i * n) + j];
-        }
-    }
-
-    return result;
-}
-
-double* multiplyMatrix(const double* matrix1, const double* matrix2, const unsigned int n)
-{
-    if (matrix1 == nullptr || matrix2 == nullptr) {
-        std::cout << "Niepoprawny wskaznik do tablicy\n";
-        return nullptr;
-    }
-
-    double* result = new double[n * n] {0};
-    double sum;
-
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            sum = 0;
-            for (int k = 0; k < n; k++) {
-                sum += matrix1[(i * n) + k] * matrix2[(k * n) + j];
-            }
-            result[(i * n) + j] = sum;
-        }
-    }
-
-    return result;
-}
-
-bool isMatrixEqual(const double* matrix1, const double* matrix2, const unsigned int n)
-{
-    if (matrix1 == nullptr || matrix2 == nullptr) {
-        std::cout << "Niepoprawny wskaznik do tablicy\n";
-        return false;
-    }
-
-    for (int i = 0; i < n * n; i++) {
-        if (matrix1[i] != matrix2[i]) {
-            return false;
-        }
-    }
-
-    return true;
-}
+#include "Matrix.h"
 
 double horner(const double x, const double* a, const unsigned int n)
 {
@@ -272,8 +201,8 @@ bool doolittle(const double* A, double* L, double* U, const unsigned int n)
 {
     // Wypelnienie zerami
     for (int i = 0; i < n * n; i++) {
-        L[i] = 0;
-        U[i] = 0;
+        L[i] = 0.;
+        U[i] = 0.;
     }
 
     // Stworzenie wektora zawierajacego indeksy tablicy
@@ -294,7 +223,7 @@ bool doolittle(const double* A, double* L, double* U, const unsigned int n)
     double sum;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j <= i; j++) {
-            sum = 0;
+            sum = 0.;
             for (int k = 0; k < j; k++) {
                 sum += L[(j * n) + k] * U[(k * n) + i];
             }
@@ -302,7 +231,7 @@ bool doolittle(const double* A, double* L, double* U, const unsigned int n)
         }
 
         for (int j = i + 1; j < n; j++) {
-            sum = 0;
+            sum = 0.;
             for (int k = 0; k < j; k++) {
                 sum += L[(j * n) + k] * U[(k * n) + i];
             }
@@ -315,10 +244,75 @@ bool doolittle(const double* A, double* L, double* U, const unsigned int n)
 
     // Wypelnienie diagonali macierzy L jedynkami
     for (int i = 0; i < n; i++) {
-        L[(i * n) + i] = 1;
+        L[(i * n) + i] = 1.;
     }
 
     delete[] w;
       
     return true;
+}
+
+double integral_rectangleMethod(const double x0, const double xn, const unsigned int n, const unsigned int variant, double (*function)(double))
+{
+    double result = 0.;
+    double alpha = 1. / 2.;
+
+    switch (variant) {
+    case 1:
+        alpha = 0.;
+        break;
+    case 2:
+        alpha = 1.;
+        break;
+    default:
+        break;
+    }
+
+    double h = (xn - x0) / n;
+    double xi = 0.;
+
+    for (int i = 0; i < n; i++) {
+        xi = x0 + i * h;
+        result += function(xi + alpha * h);
+    }
+
+    result *= h;
+
+    return result;
+}
+
+double integral_trapezeMethod(const double x0, const double xn, const unsigned int n, double(*function)(double))
+{
+    double result = 0.;
+    double h = (xn - x0) / n;
+
+    double xi = 0.;
+
+    for (int i = 0; i < n; i++) {
+        xi = x0 + i * h;
+        result += (h / 2) * (function(xi) + function(xi + h));
+    }
+
+    return result;
+}
+
+double integral_simpsonMethod(const double x0, const double xn, const unsigned int n, double(*function)(double))
+{
+    double result = 0.;
+    double h = (xn - x0) / n;
+
+    double xi = 0.;
+    double temp = 0.;
+
+    for (int i = 1; i <= n; i++) {
+        xi = x0 + i * h;
+        temp += function(xi - h / 2.);
+        if (i < n) {
+            result += function(xi);
+        }
+    }
+
+    result = h / 6 * (function(x0) + function(xn) + 2 * result + 4 * temp);
+
+    return result;
 }

@@ -1,6 +1,8 @@
 ﻿#include "pch.h"
 #include "Source.h"
 #include "Point.h"
+#include "Matrix.h"
+#include "MathFunctions.h"
 
 static void zadanie1() {
 	double a[4] = { 1.0 / 2.0, 4.0 / 3.0, -13.0 / 6.0, -2.0 };
@@ -138,14 +140,14 @@ static void zadanie7() {
 	}
 	else {
 		std::cout << "Macierz gornotrojkatna:\n";
-		printMatrix(U, n);
+		Matrix::print(U, n);
 
 		std::cout << "Macierz dolnotrojkatna:\n";
-		printMatrix(L, n);
+		Matrix::print(L, n);
 	}
 
-	check = multiplyMatrix(L, U, n);
-	std::cout << (isMatrixEqual(A1, check, n) ? "Rozklad poprawny" : "Cos poszlo nie tak");
+	check = Matrix::multiply(L, U, n);
+	std::cout << (Matrix::areEqual(A1, check, n) ? "Rozklad poprawny" : "Cos poszlo nie tak");
 
 	delete[] A1;
 	delete[] check;
@@ -161,14 +163,14 @@ static void zadanie7() {
 	}
 	else {
 		std::cout << "Macierz gornotrojkatna:\n";
-		printMatrix(U, n);
+		Matrix::print(U, n);
 
 		std::cout << "Macierz dolnotrojkatna:\n";
-		printMatrix(L, n);
+		Matrix::print(L, n);
 	}
 
-	check = multiplyMatrix(L, U, n);
-	std::cout << (isMatrixEqual(A2, check, n) ? "Rozklad poprawny" : "Cos poszlo nie tak");
+	check = Matrix::multiply(L, U, n);
+	std::cout << (Matrix::areEqual(A2, check, n) ? "Rozklad poprawny" : "Cos poszlo nie tak");
 
 	delete[] A2;
 	delete[] check;
@@ -184,10 +186,10 @@ static void zadanie7() {
 	}
 	else {
 		std::cout << "Macierz gornotrojkatna:\n";
-		printMatrix(U, n);
+		Matrix::print(U, n);
 
 		std::cout << "Macierz dolnotrojkatna:\n";
-		printMatrix(L, n);
+		Matrix::print(L, n);
 	}
 	delete[] A3;
 

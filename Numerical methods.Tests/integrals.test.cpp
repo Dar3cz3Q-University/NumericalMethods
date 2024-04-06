@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "../Numerical methods/src/Source.h"
+#include "../Numerical methods/src/LegendrePolynomial.h"
 
 namespace Integrals {
 	static double square(double x) {
@@ -10,70 +11,94 @@ namespace Integrals {
 		return (5 * x * x * x + 10 * x * x + x - 50);
 	}
 
-	unsigned int n = 10e6;
+	unsigned int n = 10e7;
+	unsigned int g = 8;
 
-	const double square_result = -3655. / 3.;
-	const double qubic_result = 3016. / 3.;
-	const double sin_result = 1.2737;
-	const double exp_result = 20.0787;
+	const double square_result = -1218.3334;
+	const double qubic_result = 173075. / 12.;
+	const double sin_result = 1.1227337145396787167255031193376221428543527573853844917663127976;
+	const double exp_result = 21878.052635704139913536785065243692086730024950962902085188673510;
+
+	const double a = 5;
+	const double b = 10;
 
 	TEST(RectangleMethod, SquareFunction) {
-		double result = integral_rectangleMethod(5, 10, n, 0, &square);
+		double result = integral_rectangleMethod(a, b, n, 0, &square);
 		ASSERT_FLOAT_EQ(result, square_result) << "N: " << n;
 	}
 
 	TEST(RectangleMethod, QubicFunction) {
-		double result = integral_rectangleMethod(1, 5, n, 0, &qubic);
+		double result = integral_rectangleMethod(a, b, n, 0, &qubic);
 		ASSERT_FLOAT_EQ(result, qubic_result) << "N: " << n;
 	}
 
 	TEST(RectangleMethod, SinusFunction) {
-		double result = integral_rectangleMethod(-5, 3, n, 0, &sin);
+		double result = integral_rectangleMethod(a, b, n, 0, &sin);
 		ASSERT_FLOAT_EQ(result, sin_result) << "N: " << n;
 	}
 
 	TEST(RectangleMethod, ExponentFunction) {
-		double result = integral_rectangleMethod(-5, 3, n, 0, &exp);
+		double result = integral_rectangleMethod(a, b, n, 0, &exp);
 		ASSERT_FLOAT_EQ(result, exp_result) << "N: " << n;
 	}
 
 	TEST(TrapezeMethod, SquareFunction) {
-		double result = integral_trapezeMethod(5, 10, n, &square);
+		double result = integral_trapezeMethod(a, b, n, &square);
 		ASSERT_FLOAT_EQ(result, square_result) << "N: " << n;
 	}
 
 	TEST(TrapezeMethod, QubicFunction) {
-		double result = integral_trapezeMethod(1, 5, n, &qubic);
+		double result = integral_trapezeMethod(a, b, n, &qubic);
 		ASSERT_FLOAT_EQ(result, qubic_result) << "N: " << n;
 	}
 
 	TEST(TrapezeMethod, SinusFunction) {
-		double result = integral_trapezeMethod(-5, 3, n, &sin);
+		double result = integral_trapezeMethod(a, b, n, &sin);
 		ASSERT_FLOAT_EQ(result, sin_result) << "N: " << n;
 	}
 
 	TEST(TrapezeMethod, ExponentFunction) {
-		double result = integral_trapezeMethod(-5, 3, n, &exp);
+		double result = integral_trapezeMethod(a, b, n, &exp);
 		ASSERT_FLOAT_EQ(result, exp_result) << "N: " << n;
 	}
 
 	TEST(SimpsonMethod, SquareFunction) {
-		double result = integral_simpsonMethod(5, 10, n, &square);
+		double result = integral_simpsonMethod(a, b, n, &square);
 		ASSERT_FLOAT_EQ(result, square_result) << "N: " << n;
 	}
 
 	TEST(SimpsonMethod, QubicFunction) {
-		double result = integral_simpsonMethod(1, 5, n, &qubic);
+		double result = integral_simpsonMethod(a, b, n, &qubic);
 		ASSERT_FLOAT_EQ(result, qubic_result) << "N: " << n;
 	}
 
 	TEST(SimpsonMethod, SinusFunction) {
-		double result = integral_simpsonMethod(-5, 3, n, &sin);
+		double result = integral_simpsonMethod(a, b, n, &sin);
 		ASSERT_FLOAT_EQ(result, sin_result) << "N: " << n;
 	}
 
 	TEST(SimpsonMethod, ExponentFunction) {
-		double result = integral_simpsonMethod(-5, 3, n, &exp);
+		double result = integral_simpsonMethod(a, b, n, &exp);
 		ASSERT_FLOAT_EQ(result, exp_result) << "N: " << n;
+	}
+
+	TEST(GaussMethod, SquareFunction) {
+		double result = integral_gaussLegendreMethod(a, b, g, &square);
+		ASSERT_FLOAT_EQ(result, square_result);
+	}
+
+	TEST(GaussMethod, QubicFunction) {
+		double result = integral_gaussLegendreMethod(a, b, g, &qubic);
+		ASSERT_FLOAT_EQ(result, qubic_result);
+	}
+
+	TEST(GaussMethod, SinusFunction) {
+		double result = integral_gaussLegendreMethod(a, b, g, &sin);
+		ASSERT_FLOAT_EQ(result, sin_result);
+	}
+
+	TEST(GaussMethod, ExponentFunction) {
+		double result = integral_gaussLegendreMethod(a, b, g, &exp);
+		ASSERT_FLOAT_EQ(result, exp_result);
 	}
 }

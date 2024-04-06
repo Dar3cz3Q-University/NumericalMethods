@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\LegendrePolynomial.h" />
     <ClInclude Include="pch\pch.h" />
     <ClInclude Include="src\MathFunctions.h" />
     <ClInclude Include="src\Matrix.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="src\Source.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\LegendrePolynomial.cpp" />
     <ClCompile Include="pch\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

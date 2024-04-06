@@ -14,6 +14,9 @@
     <ClCompile Include="matrices.test.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\Numerical methods\src\LegendrePolynomial.cpp">
+      <Filter>Files to test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -21,6 +24,9 @@
       <Filter>Files to test</Filter>
     </ClInclude>
     <ClInclude Include="..\Numerical methods\src\Source.h">
+      <Filter>Files to test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Numerical methods\src\LegendrePolynomial.h">
       <Filter>Files to test</Filter>
     </ClInclude>
   </ItemGroup>
@@ -31,5 +37,8 @@
     <Filter Include="Files to test">
       <UniqueIdentifier>{167ea449-e7aa-47bf-9851-ec6ad511c6d2}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

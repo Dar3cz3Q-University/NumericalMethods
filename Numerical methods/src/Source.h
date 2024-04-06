@@ -1,7 +1,8 @@
 #pragma once
 #include "Point.h"
+#include "LegendrePolynomial.h"
 
-const double eps = 1e-12;
+const double epsilon = 1e-15;
 
 /// <summary>
 /// Funkcja obliczajaca wartosc wielomianu w postaci naturalnej dla podanego x korzystajac ze schematu Hornera
@@ -106,4 +107,14 @@ double integral_trapezeMethod(const double x0, const double xn, const unsigned i
 /// <param name="function">Wskaznik funkcji do calkowania</param>
 /// <returns>Obliczona wartosc calki</returns>
 double integral_simpsonMethod(const double x0, const double xn, const unsigned int n, double (*function)(double));
+
+/// <summary>
+/// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda Gauss-Legendre
+/// </summary>
+/// <param name="x0">Poczatek przedzialu calkowania</param>
+/// <param name="xn">Koniec przedzialu calkowania</param>
+/// <param name="n">Dokladnosc</param>
+/// <param name="function">Wskaznik funkcji do calkowania</param>
+/// <returns>Obliczona wartosc calki</returns>
+double integral_gaussLegendreMethod(const double x0, const double xn, const unsigned int n, double (*function)(double));
 

@@ -2,7 +2,7 @@
 #include "Point.h"
 #include "LegendrePolynomial.h"
 
-const double epsilon = 1e-15;
+const double c_epsilon = 1e-15;
 
 /// <summary>
 /// Funkcja obliczajaca wartosc wielomianu w postaci naturalnej dla podanego x korzystajac ze schematu Hornera
@@ -11,7 +11,7 @@ const double epsilon = 1e-15;
 /// <param name="a">Wskaznik do tablicy wspolczynnikow w postaci naturalnej</param>
 /// <param name="n">Ilosc wspolczynnikow (stopien wielomianu + 1)</param>
 /// <returns>Wartosc wielomianu</returns>
-double horner(const double x, const double* a, const unsigned int n);
+double horner(const double x, const double* a, const uint32_t n);
 
 /// <summary>
 /// Funkcja obliczajaca wartosc wielomianu w postaci Newtona dla podanego x korzystajac ze schematu Hornera
@@ -21,7 +21,7 @@ double horner(const double x, const double* a, const unsigned int n);
 /// <param name="xn">Wskaznik to tablicy wspolrzednych x punktow</param>
 /// <param name="n">Ilosc wspolczynnikow (stopien wielomianu + 1)</param>
 /// <returns>Wartosc wielomianu</returns>
-double hornerN(const double x, const double* b, const double* xn, const unsigned int n);
+double hornerN(const double x, const double* b, const double* xn, const uint32_t n);
 
 /// <summary>
 /// Funkcja konwertujaca wspolczynniki w postaci Newtona na postac naturalna
@@ -30,7 +30,7 @@ double hornerN(const double x, const double* b, const double* xn, const unsigned
 /// <param name="x">Wskaznik to tablicy wspolrzednych x punktow</param>
 /// <param name="n">Ilosc wspolczynnikow (stopien wielomianu + 1)</param>
 /// <returns>Wskaznik do tablicy obliczonych wspolczynnikow</returns>
-double* WspNew_WspNat(const double* b, const double* x, const unsigned int n);
+double* WspNew_WspNat(const double* b, const double* x, const uint32_t n);
 
 /// <summary>
 /// Funkcja obliczajaca interpolacje Lagranga
@@ -39,7 +39,7 @@ double* WspNew_WspNat(const double* b, const double* x, const unsigned int n);
 /// <param name="x">Wartosc x dla ktorej obliczamy wartosc</param>
 /// <param name="n">Liczba wezlow interpolacji</param>
 /// <returns>Obliczona wartosc funkcji w punkcie x</returns>
-double lagrange(const Point* nodes, const double x, const unsigned int n);
+double lagrange(const Point* nodes, const double x, const uint32_t n);
 
 /// <summary>
 /// Funkcja obliczajaca interpolacje Newtona
@@ -47,7 +47,7 @@ double lagrange(const Point* nodes, const double x, const unsigned int n);
 /// <param name="nodes">Tablica zawierajacy wezly interpolacji. Wezel interpolacji to klasa Point</param>
 /// <param name="n">Liczba wezlow interpolacji</param>
 /// <returns>Wskaznik do tablicy obliczonych wspolczynnikow Newtona</returns>
-double* newton(const Point* nodes, const unsigned int n);
+double* newton(const Point* nodes, const uint32_t n);
 
 /// <summary>
 /// Funkcja obliczajaca eliminacje Gaussa
@@ -56,7 +56,7 @@ double* newton(const Point* nodes, const unsigned int n);
 /// <param name="b">Wskaznik do macierzy o wielkosci n zawierajacy wartosci wynikowe</param>
 /// <param name="n">Liczba niewiadomych</param>
 /// <returns>Wskaznik do tablicy obliczonych wartosci</returns>
-double* gauss(const double* A, const double* b, const unsigned int n);
+double* gauss(const double* A, const double* b, const uint32_t n);
 
 /// <summary>
 /// Funkcja obliczajaca eliminacje Gaussa korzystajaca z Pivotingu
@@ -65,7 +65,7 @@ double* gauss(const double* A, const double* b, const unsigned int n);
 /// <param name="b">Wskaznik do macierzy o wielkosci n zawierajacy wartosci wynikowe</param>
 /// <param name="n">Liczba niewiadomych</param>
 /// <returns>Wskaznik do tablicy obliczonych wartosci</returns>
-double* gauss_crout(const double* A, const double* b, const unsigned int n);
+double* gauss_crout(const double* A, const double* b, const uint32_t n);
 
 /// <summary>
 /// Funkcja dzielaca macierz A na dwie macierze trojkatne L i U
@@ -75,7 +75,7 @@ double* gauss_crout(const double* A, const double* b, const unsigned int n);
 /// <param name="U">Wskaznik do macierzy w ktorej znajdzie sie macierz gornotrojkatna</param>
 /// <param name="n">Wymiar macierzy</param>
 /// <returns>false jesli nie mozna wyznaczyc rozkladu w przeciwnym wypadku true</returns>
-bool doolittle(const double* A, double* L, double* U, const unsigned int n);
+bool doolittle(const double* A, double* L, double* U, const uint32_t n);
 
 /// <summary>
 /// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda prostokatow
@@ -86,7 +86,7 @@ bool doolittle(const double* A, double* L, double* U, const unsigned int n);
 /// <param name="variant">Wariant metody</param>
 /// <param name="function">Wskaznik funkcji do calkowania</param>
 /// <returns>Obliczona wartosc calki</returns>
-double integral_rectangleMethod(const double x0, const double xn, const unsigned int n, const unsigned int variant,  double (*function)(double));
+double integral_rectangleMethod(const double x0, const double xn, const uint32_t n, const uint32_t variant,  double (*function)(double));
 
 /// <summary>
 /// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda trapezow
@@ -96,7 +96,7 @@ double integral_rectangleMethod(const double x0, const double xn, const unsigned
 /// <param name="n">Dokladnosc</param>
 /// <param name="function">Wskaznik funkcji do calkowania</param>
 /// <returns>Obliczona wartosc calki</returns>
-double integral_trapezeMethod(const double x0, const double xn, const unsigned int n, double (*function)(double));
+double integral_trapezeMethod(const double x0, const double xn, const uint32_t n, double (*function)(double));
 
 /// <summary>
 /// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda Simpsona
@@ -106,7 +106,7 @@ double integral_trapezeMethod(const double x0, const double xn, const unsigned i
 /// <param name="n">Dokladnosc</param>
 /// <param name="function">Wskaznik funkcji do calkowania</param>
 /// <returns>Obliczona wartosc calki</returns>
-double integral_simpsonMethod(const double x0, const double xn, const unsigned int n, double (*function)(double));
+double integral_simpsonMethod(const double x0, const double xn, const uint32_t n, double (*function)(double));
 
 /// <summary>
 /// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda Gauss-Legendre
@@ -116,5 +116,5 @@ double integral_simpsonMethod(const double x0, const double xn, const unsigned i
 /// <param name="n">Dokladnosc</param>
 /// <param name="function">Wskaznik funkcji do calkowania</param>
 /// <returns>Obliczona wartosc calki</returns>
-double integral_gaussLegendreMethod(const double x0, const double xn, const unsigned int n, double (*function)(double));
+double integral_gaussLegendreMethod(const double x0, const double xn, const uint32_t n, double (*function)(double));
 

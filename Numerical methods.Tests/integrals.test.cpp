@@ -11,8 +11,8 @@ namespace Integrals {
 		return (5 * x * x * x + 10 * x * x + x - 50);
 	}
 
-	unsigned int n = 10e7;
-	unsigned int g = 8;
+	uint32_t n = 10e7;
+	uint32_t g = 8;
 
 	const double square_result = -1218.3334;
 	const double qubic_result = 173075. / 12.;

@@ -1,9 +1,8 @@
-﻿#include "pch.h"
-#include "Source.h"
-#include "Matrix.h"
+﻿#include "Numerical_Methods.h"
 
-double horner(const double x, const double* a, const uint32_t n)
-{
+namespace NumericalMethods {
+
+double horner(const double x, const double *a, const uint32_t n) {
     double result = a[0];
 
     for (uint32_t i = 1; i < n; i++) {
@@ -13,8 +12,7 @@ double horner(const double x, const double* a, const uint32_t n)
     return result;
 }
 
-double hornerN(const double x, const double* b, const double* xn, const uint32_t n)
-{
+double hornerN(const double x, const double *b, const double *xn, const uint32_t n) {
     double result = b[0];
 
     for (uint32_t i = 1; i < n; i++) {
@@ -24,9 +22,8 @@ double hornerN(const double x, const double* b, const double* xn, const uint32_t
     return result;
 }
 
-double* WspNew_WspNat(const double* b, const double* x, const uint32_t n)
-{
-    double* result = new double[n];
+double *WspNew_WspNat(const double *b, const double *x, const uint32_t n) {
+    double *result = new double[n];
 
     result[n - 1] = b[n - 1];
 
@@ -40,16 +37,15 @@ double* WspNew_WspNat(const double* b, const double* x, const uint32_t n)
     return result;
 }
 
-double lagrange(const Point* nodes, const double x, const uint32_t n)
-{
+double lagrange(const Point *nodes, const double x, const uint32_t n) {
     double result = 0;
 
     for (uint32_t i = 0; i < n; i++) {
-        double term = nodes[i].m_y;
+        double term = nodes[i].y;
 
         for (uint32_t j = 0; j < n; j++) {
-            if (i != j) 
-                term *= (x - nodes[j].m_x) / (nodes[i].m_x - nodes[j].m_x);
+            if (i != j)
+                term *= (x - nodes[j].x) / (nodes[i].x - nodes[j].x);
         }
 
         result += term;
@@ -58,34 +54,33 @@ double lagrange(const Point* nodes, const double x, const uint32_t n)
     return result;
 }
 
-double* newton(const Point* nodes, const uint32_t n)
-{
-    double* quotient_table = new double[n * n];
+double *newton(const Point *nodes, const uint32_t n) {
+    double *quotient_table = new double[n * n];
 
     for (uint32_t i = 0; i < n; i++) {
-        quotient_table[(i * n)] = nodes[i].m_y;
+        quotient_table[(i * n)] = nodes[i].y;
     }
 
     for (uint32_t j = 1; j < n; j++) {
         for (uint32_t i = 0; i < n - j; i++) {
-            quotient_table[(i * n) + j] = (quotient_table[((i + 1) * n) + j - 1] - quotient_table[(i * n) + j - 1]) / (nodes[i + j].m_x - nodes[i].m_x);
+            quotient_table[(i * n) + j] = (quotient_table[((i + 1) * n) + j - 1] - quotient_table[(i * n) + j - 1]) / (nodes[i + j].x - nodes[i].x);
         }
     }
 
     // Copy to final table
-    double* result = new double[n];
-    for (uint32_t i = 0; i < n; i++) result[i] = quotient_table[i];
+    double *result = new double[n];
+    for (uint32_t i = 0; i < n; i++)
+        result[i] = quotient_table[i];
 
     delete[] quotient_table;
 
     return result;
 }
 
-double* gauss(const double* A, const double* b, const uint32_t n)
-{
+double *gauss(const double *A, const double *b, const uint32_t n) {
     // ts - zmienna do "przeskoku" w tablicy jednowymiarowej
     int ts = n + 1;
-    double* AB = new double[n * ts];
+    double *AB = new double[n * ts];
 
     // Przepisanie danych z tablic A i b do AB
     for (uint32_t i = 0; i < n; i++) {
@@ -97,11 +92,10 @@ double* gauss(const double* A, const double* b, const uint32_t n)
 
     // Etap eliminacji
     double m;
-    for (uint32_t i = 0; i < n - 1; i++)
-    {
-        for (uint32_t j = i + 1; j < n; j++)
-        {
-            if (fabs(AB[(i * ts) + i]) < c_epsilon) return nullptr;
+    for (uint32_t i = 0; i < n - 1; i++) {
+        for (uint32_t j = i + 1; j < n; j++) {
+            if (fabs(AB[(i * ts) + i]) < c_epsilon)
+                return nullptr;
 
             m = -AB[(j * ts) + i] / AB[(i * ts) + i];
 
@@ -111,18 +105,18 @@ double* gauss(const double* A, const double* b, const uint32_t n)
         }
     }
 
-    // Etap obliczania 
+    // Etap obliczania
     double s;
-    double* x = new double[n];
-    for (int i = n - 1; i >= 0; i--)
-    {
+    double *x = new double[n];
+    for (int i = n - 1; i >= 0; i--) {
         s = AB[(i * ts) + n];
 
         for (int j = n - 1; j >= i + 1; j--) {
             s -= AB[(i * ts) + j] * x[j];
         }
 
-        if (fabs(AB[(i * ts) + i]) < c_epsilon) return nullptr;
+        if (fabs(AB[(i * ts) + i]) < c_epsilon)
+            return nullptr;
 
         x[i] = s / AB[(i * ts) + i];
     }
@@ -133,12 +127,11 @@ double* gauss(const double* A, const double* b, const uint32_t n)
     return x;
 }
 
-double* gauss_crout(const double* A, const double* b, const uint32_t n)
-{
+double *gauss_crout(const double *A, const double *b, const uint32_t n) {
     // ts zmienna do "przeskoku" w tablicy jednowymiarowej
     int ts = n + 1;
-    double* AB = new double[n * ts];
-    int* w = new int[ts];
+    double *AB = new double[n * ts];
+    int *w = new int[ts];
 
     // Przepisanie danych z tablic A i b do AB
     for (uint32_t i = 0; i < n; i++) {
@@ -149,22 +142,23 @@ double* gauss_crout(const double* A, const double* b, const uint32_t n)
     }
 
     // Przygotowanie wektora z numerami kolumn
-    for (int i = 0; i < ts; i++) w[i] = i;
+    for (int i = 0; i < ts; i++)
+        w[i] = i;
 
     // Etap eliminacji
     double m;
 
-    for (uint32_t i = 0; i < n - 1; i++)
-    {
+    for (uint32_t i = 0; i < n - 1; i++) {
         int v = i;
-        for (uint32_t j = i + 1; j < n; j++)
-        {
-            if (fabs(AB[(i * ts) + w[v]]) < fabs(AB[(i * ts) + w[j]])) v = j;
+        for (uint32_t j = i + 1; j < n; j++) {
+            if (fabs(AB[(i * ts) + w[v]]) < fabs(AB[(i * ts) + w[j]]))
+                v = j;
             std::swap(w[v], w[i]);
         }
 
         for (uint32_t j = i + 1; j < n; j++) {
-            if (fabs(AB[(i * ts) + w[i]]) < c_epsilon) return nullptr;
+            if (fabs(AB[(i * ts) + w[i]]) < c_epsilon)
+                return nullptr;
 
             m = -AB[(j * ts) + w[i]] / AB[(i * ts) + w[i]];
 
@@ -174,13 +168,13 @@ double* gauss_crout(const double* A, const double* b, const uint32_t n)
         }
     }
 
-    // Etap obliczania 
+    // Etap obliczania
     double s;
-    double* x = new double[n];
+    double *x = new double[n];
 
-    for (int i = n - 1; i >= 0; i--)
-    {
-        if (fabs(AB[(i * ts) + w[i]]) < c_epsilon) return nullptr;
+    for (int i = n - 1; i >= 0; i--) {
+        if (fabs(AB[(i * ts) + w[i]]) < c_epsilon)
+            return nullptr;
 
         s = AB[(i * ts) + n];
 
@@ -197,8 +191,7 @@ double* gauss_crout(const double* A, const double* b, const uint32_t n)
     return x;
 }
 
-bool doolittle(const double* A, double* L, double* U, const uint32_t n)
-{
+bool doolittle(const double *A, double *L, double *U, const uint32_t n) {
     // Wypelnienie zerami
     for (uint32_t i = 0; i < n * n; i++) {
         L[i] = 0.;
@@ -206,7 +199,7 @@ bool doolittle(const double* A, double* L, double* U, const uint32_t n)
     }
 
     // Stworzenie wektora zawierajacego indeksy tablicy
-    int* w = new int[n];
+    int *w = new int[n];
     for (uint32_t i = 0; i < n; i++) {
         w[i] = i;
     }
@@ -236,7 +229,8 @@ bool doolittle(const double* A, double* L, double* U, const uint32_t n)
                 sum += L[(j * n) + k] * U[(k * n) + i];
             }
 
-            if (fabs(U[(i * n) + i]) < c_epsilon) return false;
+            if (fabs(U[(i * n) + i]) < c_epsilon)
+                return false;
 
             L[(j * n) + i] = (A[(w[j] * n) + i] - sum) / U[(i * n) + i];
         }
@@ -248,12 +242,11 @@ bool doolittle(const double* A, double* L, double* U, const uint32_t n)
     }
 
     delete[] w;
-      
+
     return true;
 }
 
-double integral_rectangleMethod(const double x0, const double xn, const uint32_t n, const uint32_t variant, double (*function)(double))
-{
+double integral_rectangleMethod(const double x0, const double xn, const uint32_t n, const uint32_t variant, double (*function)(double)) {
     double result = 0.;
     double alpha = .5;
 
@@ -281,8 +274,7 @@ double integral_rectangleMethod(const double x0, const double xn, const uint32_t
     return result;
 }
 
-double integral_trapezeMethod(const double x0, const double xn, const uint32_t n, double(*function)(double))
-{
+double quad_t(const double x0, const double xn, const uint32_t n, double (*function)(double)) {
     double result = 0.;
     double h = (xn - x0) / n;
 
@@ -296,8 +288,20 @@ double integral_trapezeMethod(const double x0, const double xn, const uint32_t n
     return result;
 }
 
-double integral_simpsonMethod(const double x0, const double xn, const uint32_t n, double(*function)(double))
-{
+double quad_t(const double a, const double b, const double h, double (*function)(double)) {
+    double result = 0.;
+
+    double xi = 0.;
+
+    for (double i = a; i < b; i += h) {
+        xi = i + h;
+        result += (h * .5) * (function(i) + function(xi));
+    }
+
+    return result;
+}
+
+double quad_s(const double x0, const double xn, const uint32_t n, double (*function)(double)) {
     double result = 0.;
     double h = (xn - x0) / n;
 
@@ -317,12 +321,30 @@ double integral_simpsonMethod(const double x0, const double xn, const uint32_t n
     return result;
 }
 
-double integral_gaussLegendreMethod(const double x0, const double xn, const uint32_t n, double(*function)(double))
-{
+double quad_s(const double a, const double b, const double h, double (*function)(double)) {
+    double result = 0.;
+
+    double xi = 0.;
+    double temp = 0.;
+
+    for (double i = a; i <= b; i += h) {
+        xi = i + h;
+        temp += function(xi - h * .5);
+        if (i < b) {
+            result += function(xi);
+        }
+    }
+
+    result = h * .6 * (function(a) + function(b) + 2 * result + 4 * temp);
+
+    return result;
+}
+
+double integral_gaussLegendreMethod(const double x0, const double xn, const uint32_t n, double (*function)(double)) {
     const LegendrePolynomial polynomial(x0, xn, n);
 
-    double* weight = polynomial.getWeight();
-    double* root = polynomial.getRoot();
+    double *weight = polynomial.getWeight();
+    double *root = polynomial.getRoot();
 
     double result = 0.;
     double width = (xn - x0) * .5;
@@ -336,3 +358,4 @@ double integral_gaussLegendreMethod(const double x0, const double xn, const uint
 
     return result;
 }
+} // namespace NumericalMethods

@@ -1,5 +1,7 @@
 #pragma once
 #include "Numerical_Methods.h"
+#include "integrals/Trapeze.h"
+#include "integrals/Simpson.h"
 
 double func1(double x) {
     return (pow(x, 2) * pow(sin(x), 3));
@@ -19,8 +21,8 @@ static void zadanie8_1() {
 
     for (int i = 0; i < 5; i++) {
         std::cout << "h: " << h << "\n";
-        std::cout << "quad_t (trapeze): " << NumericalMethods::quad_t(a, b, h, &func1) << "\n";
-        std::cout << "quad_s (Simpson): " << NumericalMethods::quad_s(a, b, h, &func1) << "\n";
+        std::cout << "quad_t (trapeze): " << NumericalMethods::Integrals::trapeze(a, b, h, &func1) << "\n";
+        std::cout << "quad_s (Simpson): " << NumericalMethods::Integrals::simpson(a, b, h, &func1) << "\n";
         h /= 10;
     }
 }
@@ -43,8 +45,8 @@ static void zadanie8_2() {
 
     for (int i = 0; i < 5; i++) {
         std::cout << "h: " << h << "\n";
-        std::cout << "quad_t (trapeze): " << NumericalMethods::quad_t(a, b, h, &func2) << "\n";
-        std::cout << "quad_s (Simpson): " << NumericalMethods::quad_s(a, b, h, &func2) << "\n";
+        std::cout << "quad_t (trapeze): " << NumericalMethods::Integrals::trapeze(a, b, h, &func2) << "\n";
+        std::cout << "quad_s (Simpson): " << NumericalMethods::Integrals::simpson(a, b, h, &func2) << "\n";
         h /= 10;
     }
 }
@@ -71,8 +73,8 @@ static void zadanie8_3() {
 
     for (int i = 0; i < 5; i++) {
         std::cout << "h: " << h << "\n";
-        std::cout << "quad_t (trapeze): " << NumericalMethods::quad_t(a, b, h, &func3) << "\n";
-        std::cout << "quad_s (Simpson): " << NumericalMethods::quad_s(a, b, h, &func3) << "\n";
+        std::cout << "quad_t (trapeze): " << NumericalMethods::Integrals::trapeze(a, b, h, &func3) << "\n";
+        std::cout << "quad_s (Simpson): " << NumericalMethods::Integrals::simpson(a, b, h, &func3) << "\n";
         h /= 10;
     }
 }
@@ -99,8 +101,8 @@ static void zadanie8_4() {
 
     for (int i = 0; i < 5; i++) {
         std::cout << "h: " << h << "\n";
-        std::cout << "quad_t (trapeze): " << NumericalMethods::quad_t(a, b, h, &func3) << "\n";
-        std::cout << "quad_s (Simpson): " << NumericalMethods::quad_s(a, b, h, &func3) << "\n";
+        std::cout << "quad_t (trapeze): " << NumericalMethods::Integrals::trapeze(a, b, h, &func4) << "\n";
+        std::cout << "quad_s (Simpson): " << NumericalMethods::Integrals::simpson(a, b, h, &func4) << "\n";
         h /= 10;
     }
 }

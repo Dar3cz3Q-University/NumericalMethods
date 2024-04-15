@@ -4,10 +4,6 @@
 #include <stdlib.h>
 #include <cstdint>
 
-#include "LegendrePolynomial.h"
-#include "MathFunctions.h"
-#include "Matrix.h"
-
 #define _USE_MATH_DEFINES
 #include <cmath>
 
@@ -94,66 +90,4 @@ double *gauss_crout(const double *A, const double *b, const uint32_t n);
 /// <param name="n">Wymiar macierzy</param>
 /// <returns>false jesli nie mozna wyznaczyc rozkladu w przeciwnym wypadku true</returns>
 bool doolittle(const double *A, double *L, double *U, const uint32_t n);
-
-/// <summary>
-/// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda prostokatow
-/// </summary>
-/// <param name="x0">Poczatek przedzialu calkowania</param>
-/// <param name="xn">Koniec przedzialu calkowania</param>
-/// <param name="n">Dokladnosc</param>
-/// <param name="variant">Wariant metody</param>
-/// <param name="function">Wskaznik funkcji do calkowania</param>
-/// <returns>Obliczona wartosc calki</returns>
-double integral_rectangleMethod(const double x0, const double xn, const uint32_t n, const uint32_t variant, double (*function)(double));
-
-/// <summary>
-/// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda trapezow
-/// </summary>
-/// <param name="x0">Poczatek przedzialu calkowania</param>
-/// <param name="xn">Koniec przedzialu calkowania</param>
-/// <param name="n">Dokladnosc</param>
-/// <param name="function">Wskaznik funkcji do calkowania</param>
-/// <returns>Obliczona wartosc calki</returns>
-double quad_t(const double x0, const double xn, const uint32_t n, double (*function)(double));
-
-/// <summary>
-/// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda trapezow
-/// </summary>
-/// <param name="a">Poczatek przedzialu calkowania</param>
-/// <param name="b">Koniec przedzialu calkowania</param>
-/// <param name="h">Wielkosc podzialu</param>
-/// <param name="function">Wskaznik funkcji do calkowania</param>
-/// <returns>Obliczona wartosc calki</returns>
-double quad_t(const double a, const double b, const double h, double (*function)(double));
-
-/// <summary>
-/// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda Simpsona
-/// </summary>
-/// <param name="x0">Poczatek przedzialu calkowania</param>
-/// <param name="xn">Koniec przedzialu calkowania</param>
-/// <param name="n">Dokladnosc</param>
-/// <param name="function">Wskaznik funkcji do calkowania</param>
-/// <returns>Obliczona wartosc calki</returns>
-double quad_s(const double x0, const double xn, const uint32_t n, double (*function)(double));
-
-/// <summary>
-/// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda Simpsona
-/// </summary>
-/// <param name="a">Poczatek przedzialu calkowania</param>
-/// <param name="b">Koniec przedzialu calkowania</param>
-/// <param name="h">Wielkosc podzialu</param>
-/// <param name="function">Wskaznik funkcji do calkowania</param>
-/// <returns>Obliczona wartosc calki</returns>
-double quad_s(const double a, const double b, const double h, double (*function)(double));
-
-/// <summary>
-/// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda Gauss-Legendre
-/// </summary>
-/// <param name="x0">Poczatek przedzialu calkowania</param>
-/// <param name="xn">Koniec przedzialu calkowania</param>
-/// <param name="n">Dokladnosc</param>
-/// <param name="function">Wskaznik funkcji do calkowania</param>
-/// <returns>Obliczona wartosc calki</returns>
-double integral_gaussLegendreMethod(const double x0, const double xn, const uint32_t n, double (*function)(double));
-
 } // namespace NumericalMethods

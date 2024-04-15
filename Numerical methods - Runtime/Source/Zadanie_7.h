@@ -1,5 +1,6 @@
 #pragma once
 #include "Numerical_Methods.h"
+#include "matrix/Matrix.h"
 
 static void zadanie7() {
     int n = 3;

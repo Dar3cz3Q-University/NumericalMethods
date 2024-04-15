@@ -335,7 +335,7 @@ double quad_s(const double a, const double b, const double h, double (*function)
         }
     }
 
-    result = h * .6 * (function(a) + function(b) + 2 * result + 4 * temp);
+    result = h / 6 * (function(a) + function(b) + 2 * result + 4 * temp);
 
     return result;
 }

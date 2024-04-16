@@ -8,10 +8,11 @@
 #include "Zadanie_6.h"
 #include "Zadanie_7.h"
 #include "Zadanie_8.h"
+#include "Zadanie_9.h"
 
 int main(int argc, int **argv) {
 
-    zadanie8();
+    zadanie9();
 
     return 0;
 }

@@ -3,8 +3,7 @@
 
 #include "LegendrePolynomial.h"
 
-namespace NumericalMethods {
-	namespace Integrals {
+namespace NumericalMethods::Integrals {
 	/// <summary>
 	/// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda Gauss-Legendre
 	/// </summary>
@@ -14,5 +13,4 @@ namespace NumericalMethods {
 	/// <param name="function">Wskaznik funkcji do calkowania</param>
 	/// <returns>Obliczona wartosc calki</returns>
 	double gauss_Legendre(const double x0, const double xn, const uint32_t n, double (*function)(double));
-	} // namespace Integrals
-} // namespace NumericalMethods
+} // namespace NumericalMethods::Integrals

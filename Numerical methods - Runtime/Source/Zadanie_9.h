@@ -7,6 +7,7 @@
 double func1(double x);
 
 static void zadanie9() {
+	PROFILE_APP_FUNCTION();
 	uint32_t n = 21;
 	double a = 0.0;
 	double b = 4.5;

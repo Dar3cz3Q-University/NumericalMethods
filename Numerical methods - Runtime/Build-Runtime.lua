@@ -10,6 +10,7 @@ project "Numerical methods - Runtime"
    includedirs
    {
       "Source",
+      "Util"
 
 	  -- Include Core
 	  "../Numerical methods - Core/Source"

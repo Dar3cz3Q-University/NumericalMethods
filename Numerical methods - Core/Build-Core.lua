@@ -9,7 +9,8 @@ project "Numerical methods - Core"
 
    includedirs
    {
-      "Source"
+      "Source",
+      "Util"
    }
 
    targetdir ("../Binaries/" .. OutputDir .. "/%{prj.name}")

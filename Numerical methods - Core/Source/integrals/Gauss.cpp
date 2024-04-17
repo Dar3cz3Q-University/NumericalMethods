@@ -1,7 +1,9 @@
 #include "Gauss.h"
+#include "Benchmark/Timer.h"
 
 namespace NumericalMethods::Integrals {
 	double gauss_Legendre(const double x0, const double xn, const uint32_t n, double (*function)(double)) {
+		PROFILE_CORE_FUNCTION();
 		static uint32_t prev_n = n;
 		static LegendrePolynomial polynomial(x0, xn, n);
 
@@ -27,6 +29,7 @@ namespace NumericalMethods::Integrals {
 	}
 
 	double gauss_Kronrod(const double a, const double b, const uint32_t n, double(*function)(double)) {
+		PROFILE_CORE_FUNCTION();
 		double kronrod{}, x{}, v{};
 		double center = (b - a) * .5;
 		double mean = (a + b) * .5;

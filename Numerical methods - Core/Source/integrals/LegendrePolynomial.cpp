@@ -1,4 +1,5 @@
 #include "LegendrePolynomial.h"
+#include "Benchmark/Timer.h"
 
 namespace NumericalMethods {
 	void LegendrePolynomial::recalculateWeightAndRoot(uint32_t n) {
@@ -16,6 +17,7 @@ namespace NumericalMethods {
 	}
 
 	void LegendrePolynomial::calculateWeightAndRoot() {
+		PROFILE_CORE_FUNCTION();
 		for (unsigned int i = 0; i <= m_n; i++) {
 			double root = cos(M_PI * (i - .25) / (m_n + .5));
 			Result result = calculatePolynomialValueAndDerivative(root);

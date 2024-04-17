@@ -4,49 +4,51 @@
 #include <cstdint>
 
 namespace NumericalMethods {
-    // TODO: Cache calucated values for later use
-    class LegendrePolynomial {
-    public:
-        LegendrePolynomial(double a, double b, uint32_t n) : m_a(a), m_b(b), m_n(n), m_weight(nullptr), m_root(nullptr) {
-            m_weight = new double[m_n + 1];
-            m_root = new double[m_n + 1];
-            calculateWeightAndRoot();
-        }
+	class LegendrePolynomial {
+	public:
+		LegendrePolynomial() = default;
+		LegendrePolynomial(double a, double b, uint32_t n) : m_a(a), m_b(b), m_n(n), m_weight(nullptr), m_root(nullptr) {
+			m_weight = new double[m_n + 1];
+			m_root = new double[m_n + 1];
+			calculateWeightAndRoot();
+		}
 
-        ~LegendrePolynomial() {
-            if (m_weight != nullptr) {
-                delete[] m_weight;
-            }
-            if (m_root != nullptr) {
-                delete[] m_root;
-            }
-        }
+		~LegendrePolynomial() {
+			if (m_weight != nullptr) {
+				delete[] m_weight;
+			}
+			if (m_root != nullptr) {
+				delete[] m_root;
+			}
+		}
 
-        double *getWeight() const {
-            return m_weight;
-        }
+		double* getWeight() const {
+			return m_weight;
+		}
 
-        double *getRoot() const {
-            return m_root;
-        }
+		double* getRoot() const {
+			return m_root;
+		}
 
-    private:
-        double m_a;
-        double m_b;
-        double *m_weight;
-        double *m_root;
-        uint32_t m_n;
+		void recalculateWeightAndRoot(uint32_t n);
 
-        const double m_epsilon = 1e-15;
+	private:
+		double m_a;
+		double m_b;
+		double* m_weight;
+		double* m_root;
+		uint32_t m_n;
 
-        struct Result {
-            double m_value;
-            double m_derivative;
-            Result() : m_value(0), m_derivative(0){};
-            Result(double value, double derivative) : m_value(value), m_derivative(derivative){};
-        };
+		const double m_epsilon = 1e-15;
 
-        void calculateWeightAndRoot();
-        Result calculatePolynomialValueAndDerivative(double x);
-    };
+		struct Result {
+			double m_value;
+			double m_derivative;
+			Result() : m_value(0), m_derivative(0) {};
+			Result(double value, double derivative) : m_value(value), m_derivative(derivative) {};
+		};
+
+		void calculateWeightAndRoot();
+		Result calculatePolynomialValueAndDerivative(double x);
+	};
 } // namespace NumericalMethods::Integrals

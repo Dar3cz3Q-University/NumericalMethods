@@ -1,38 +1,52 @@
 #include "LegendrePolynomial.h"
 
 namespace NumericalMethods {
-    void LegendrePolynomial::calculateWeightAndRoot() {
-        for (unsigned int i = 0; i <= m_n; i++) {
-            double root = cos(M_PI * (i - .25) / (m_n + .5));
-            Result result = calculatePolynomialValueAndDerivative(root);
+	void LegendrePolynomial::recalculateWeightAndRoot(uint32_t n) {
+		m_n = n;
 
-            double newtonRaphsonRatio;
+		// Delete old data
+		delete[] m_weight;
+		delete[] m_root;
 
-            do {
-                newtonRaphsonRatio = result.m_value / result.m_derivative;
-                root -= newtonRaphsonRatio;
-                result = calculatePolynomialValueAndDerivative(root);
-            } while (fabs(newtonRaphsonRatio) > m_epsilon);
+		// Create new place
+		m_weight = new double[m_n + 1];
+		m_root = new double[m_n + 1];
 
-            m_root[i] = root;
-            m_weight[i] = 2. / ((1. - root * root) * result.m_derivative * result.m_derivative);
-        }
-    }
+		calculateWeightAndRoot();
+	}
 
-    LegendrePolynomial::Result LegendrePolynomial::calculatePolynomialValueAndDerivative(double x) {
-        Result result(x, 0);
+	void LegendrePolynomial::calculateWeightAndRoot() {
+		for (unsigned int i = 0; i <= m_n; i++) {
+			double root = cos(M_PI * (i - .25) / (m_n + .5));
+			Result result = calculatePolynomialValueAndDerivative(root);
 
-        double value_minus_1 = 1.;
-        const double f = 1. / (x * x - 1.);
+			double newtonRaphsonRatio;
 
-        for (unsigned int i = 2; i <= m_n; i++) {
-            const double value = ((2 * i - 1) * x * result.m_value - (i - 1) * value_minus_1) / i;
-            result.m_derivative = i * f * (x * value - result.m_value);
+			do {
+				newtonRaphsonRatio = result.m_value / result.m_derivative;
+				root -= newtonRaphsonRatio;
+				result = calculatePolynomialValueAndDerivative(root);
+			} while (fabs(newtonRaphsonRatio) > m_epsilon);
 
-            value_minus_1 = result.m_value;
-            result.m_value = value;
-        }
+			m_root[i] = root;
+			m_weight[i] = 2. / ((1. - root * root) * result.m_derivative * result.m_derivative);
+		}
+	}
 
-        return result;
-    }
+	LegendrePolynomial::Result LegendrePolynomial::calculatePolynomialValueAndDerivative(double x) {
+		Result result(x, 0);
+
+		double value_minus_1 = 1.;
+		const double f = 1. / (x * x - 1.);
+
+		for (unsigned int i = 2; i <= m_n; i++) {
+			const double value = ((2 * i - 1) * x * result.m_value - (i - 1) * value_minus_1) / i;
+			result.m_derivative = i * f * (x * value - result.m_value);
+
+			value_minus_1 = result.m_value;
+			result.m_value = value;
+		}
+
+		return result;
+	}
 } // namespace NumericalMethods::Integrals

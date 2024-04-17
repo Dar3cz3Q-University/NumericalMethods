@@ -1,4 +1,5 @@
 ﻿#include "Numerical_Methods.h"
+#include "Integrals/LegendrePolynomial.h"
 
 #include "Zadanie_1.h"
 #include "Zadanie_2.h"
@@ -10,9 +11,8 @@
 #include "Zadanie_8.h"
 #include "Zadanie_9.h"
 
-int main(int argc, int **argv) {
+int main(int argc, int** argv) {
+	zadanie9();
 
-    zadanie9();
-
-    return 0;
+	return 0;
 }

@@ -3,7 +3,6 @@
 
 namespace NumericalMethods {
 	double horner(const double x, const double* a, const uint32_t n) {
-		PROFILE_CORE_FUNCTION();
 		double result = a[0];
 
 		for (uint32_t i = 1; i < n; i++) {
@@ -14,7 +13,6 @@ namespace NumericalMethods {
 	}
 
 	double hornerN(const double x, const double* b, const double* xn, const uint32_t n) {
-		PROFILE_CORE_FUNCTION();
 		double result = b[0];
 
 		for (uint32_t i = 1; i < n; i++) {
@@ -25,7 +23,6 @@ namespace NumericalMethods {
 	}
 
 	double* WspNew_WspNat(const double* b, const double* x, const uint32_t n) {
-		PROFILE_CORE_FUNCTION();
 		double* result = new double[n];
 
 		result[n - 1] = b[n - 1];
@@ -41,7 +38,6 @@ namespace NumericalMethods {
 	}
 
 	double lagrange(const Point* nodes, const double x, const uint32_t n) {
-		PROFILE_CORE_FUNCTION();
 		double result = 0;
 
 		for (uint32_t i = 0; i < n; i++) {
@@ -59,7 +55,6 @@ namespace NumericalMethods {
 	}
 
 	double* newton(const Point* nodes, const uint32_t n) {
-		PROFILE_CORE_FUNCTION();
 		double* quotient_table = new double[n * n];
 
 		for (uint32_t i = 0; i < n; i++) {

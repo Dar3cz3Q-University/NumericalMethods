@@ -4,7 +4,6 @@
 
 namespace NumericalMethods::Matrix {
 	void print(const double* matrix, const unsigned int n) {
-		PROFILE_CORE_FUNCTION();
 		if (matrix == nullptr) {
 			std::cout << "Niepoprawny wskaznik do tablicy\n";
 			return;
@@ -19,7 +18,6 @@ namespace NumericalMethods::Matrix {
 	}
 
 	double* copy(const double* matrix, const unsigned int n) {
-		PROFILE_CORE_FUNCTION();
 		if (matrix == nullptr) {
 			std::cout << "Niepoprawny wskaznik do tablicy\n";
 			return nullptr;
@@ -37,7 +35,6 @@ namespace NumericalMethods::Matrix {
 	}
 
 	double* multiply(const double* matrix1, const double* matrix2, const unsigned int n) {
-		PROFILE_CORE_FUNCTION();
 		if (matrix1 == nullptr || matrix2 == nullptr) {
 			std::cout << "Niepoprawny wskaznik do tablicy\n";
 			return nullptr;
@@ -60,7 +57,6 @@ namespace NumericalMethods::Matrix {
 	}
 
 	bool areEqual(const double* matrix1, const double* matrix2, const unsigned int n) {
-		PROFILE_CORE_FUNCTION();
 		if (matrix1 == nullptr || matrix2 == nullptr) {
 			std::cout << "Niepoprawny wskaznik do tablicy\n";
 			return false;

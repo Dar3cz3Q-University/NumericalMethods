@@ -7,7 +7,7 @@ namespace NumericalMethods {
 	class LegendrePolynomial {
 	public:
 		LegendrePolynomial() = default;
-		LegendrePolynomial(double a, double b, uint32_t n) : m_a(a), m_b(b), m_n(n), m_weight(nullptr), m_root(nullptr) {
+		LegendrePolynomial(uint32_t n) : m_n(n), m_weight(nullptr), m_root(nullptr) {
 			m_weight = new double[m_n + 1];
 			m_root = new double[m_n + 1];
 			calculateWeightAndRoot();
@@ -33,8 +33,6 @@ namespace NumericalMethods {
 		void recalculateWeightAndRoot(uint32_t n);
 
 	private:
-		double m_a;
-		double m_b;
 		double* m_weight;
 		double* m_root;
 		uint32_t m_n;

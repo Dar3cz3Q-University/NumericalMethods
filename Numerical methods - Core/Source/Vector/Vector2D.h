@@ -12,24 +12,25 @@ namespace NumericalMethods::Vector {
 		Vector2D GetNormalized() const;
 
 		// Podstawowe operacje matematyczne
-		Vector2D operator+(const Vector2D& p);
-		Vector2D operator-(const Vector2D& p);
-		Vector2D operator*(const double& p);	// Mnozenie przez skalar z prawej strony
-		Vector2D operator/(const double& p);	// Dzielenie przez skalar z prawej strony
-
-		friend Vector2D operator*(const double& l, Vector2D& p);	// Mnozenie przez skalar z lewej strony
-		friend Vector2D operator/(const double& l, Vector2D& p);	// Dzielenie przez skalar z lewej strony
+		Vector2D operator+(const Vector2D& vector);
+		Vector2D operator-(const Vector2D& vector);
+		Vector2D operator*(double number);	// Mnozenie przez skalar z lewej strony
+		Vector2D operator/(double number);	// Dzielenie przez skalar z lewej strony
 
 		// Iloczyn skalarny
-		friend double operator*(const Vector2D& l, const Vector2D& p);
+		friend double DotProduct(const Vector2D& a, const Vector2D& b);
+
+		// Vector Projection
+		friend Vector2D Projection(Vector2D& a, Vector2D& b);
 
 		// Wypisanie na ekran
-		friend std::ostream& operator<<(std::ostream& os, const Vector2D& p);
+		friend std::ostream& operator<<(std::ostream& os, const Vector2D& vector);
+
 	private:
 		double m_X, m_Y;
 	};
 
-	Vector2D operator*(const double& l, Vector2D& p);
-	double operator*(const Vector2D& l, const Vector2D& p);
-	std::ostream& operator<<(std::ostream& os, const Vector2D& p);
+	double DotProduct(const Vector2D& a, const Vector2D& b);
+	Vector2D Projection(Vector2D& a, Vector2D& b);
+	std::ostream& operator<<(std::ostream& os, const Vector2D& vector);
 } // namespace NumericalMethods::Vector

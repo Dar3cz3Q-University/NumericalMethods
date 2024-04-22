@@ -43,29 +43,24 @@ namespace NumericalMethods::Vector {
 		return Vector2D(m_X - p.m_X, m_Y - p.m_Y);
 	}
 
-	Vector2D Vector2D::operator*(const double& p)
+	Vector2D Vector2D::operator*(double p)
 	{
 		return Vector2D(m_X * p, m_Y * p);
 	}
 
-	Vector2D Vector2D::operator/(const double& p)
+	Vector2D Vector2D::operator/(double p)
 	{
 		return Vector2D(m_X / p, m_Y / p);
 	}
 
-	Vector2D operator*(const double& l, Vector2D& p)
+	double DotProduct(const Vector2D& l, const Vector2D& p)
 	{
-		return (p * l);
+		return l.m_X * p.m_X + l.m_Y * p.m_Y;
 	}
 
-	Vector2D operator/(const double& l, Vector2D& p)
-	{
-		return (p / l);
-	}
-
-	double operator*(const Vector2D& l, const Vector2D& p)
-	{
-		return p.m_X * l.m_X + p.m_Y * l.m_Y;
+	Vector2D Projection(Vector2D& a, Vector2D& b) {
+		double value = (DotProduct(b, a) / pow(b.GetLength(), 2));
+		return b * value;
 	}
 
 	std::ostream& operator<<(std::ostream& os, const Vector2D& p)

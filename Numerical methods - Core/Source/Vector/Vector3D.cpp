@@ -44,27 +44,17 @@ namespace NumericalMethods::Vector {
 		return Vector3D(m_X - p.m_X, m_Y - p.m_Y, m_Z - p.m_Z);
 	}
 
-	Vector3D Vector3D::operator*(const double& p)
+	Vector3D Vector3D::operator*(double p)
 	{
 		return Vector3D(m_X * p, m_Y * p, m_Z * p);
 	}
 
-	Vector3D Vector3D::operator/(const double& p)
+	Vector3D Vector3D::operator/(double p)
 	{
 		return Vector3D(m_X / p, m_Y / p, m_Z / p);
 	}
 
-	Vector3D operator*(const double& p, Vector3D& l)
-	{
-		return (l * p);
-	}
-
-	Vector3D operator/(const double& p, Vector3D& l)
-	{
-		return (l / p);
-	}
-
-	double operator*(const Vector3D& p, const Vector3D& l)
+	double DotProduct(const Vector3D& p, const Vector3D& l)
 	{
 		return p.m_X * l.m_X + p.m_Y * l.m_Y + p.m_Z * l.m_Z;
 	}
@@ -76,6 +66,12 @@ namespace NumericalMethods::Vector {
 		double det_Z = a.m_X * b.m_Y - (a.m_Y * b.m_X);
 
 		return Vector3D(det_X, det_Y, det_Z);
+	}
+
+	Vector3D Projection(Vector3D& a, Vector3D& b)
+	{
+		double value = (DotProduct(b, a) / pow(b.GetLength(), 2));
+		return b * value;
 	}
 
 	std::ostream& operator<<(std::ostream& os, const Vector3D& p)

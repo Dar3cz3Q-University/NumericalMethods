@@ -4,9 +4,6 @@
 #include "Numerical_Methods.h"
 
 namespace NumericalMethods::Vector {
-	class Vector2D;
-	class Vector3D;
-
 	class Vector
 	{
 	public:
@@ -18,5 +15,5 @@ namespace NumericalMethods::Vector {
 	};
 
 	template<class T>
-	bool areOrthogonal(const T& l, const T& p) { return (l * p == 0); };
+	bool areOrthogonal(const T& a, const T& b) { return (a * b == 0); };
 } // namespace NumericalMethods::Vector

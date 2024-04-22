@@ -2,23 +2,32 @@
 #include "Numerical_Methods.h"
 #include "Vector/Vector2D.h"
 #include "Vector/Vector3D.h"
+#include "Orthogonalization/GramSchmidt.h"
 
 #include "Benchmark/Timer.h"
 
+#include "Numerical_Methods.h"
+
+#define VECTOR_TYPE Vector3D
+
+using namespace NumericalMethods::Vector;
+using namespace NumericalMethods::Orthonormalization;
+
 void zadanie10() {
 	PROFILE_APP_FUNCTION();
-	NumericalMethods::Vector::Vector3D vec1(1, 2, 3);
-	NumericalMethods::Vector::Vector3D vec2(3, 2, 1);
+	int n = 3;
 
-	NumericalMethods::Vector::Vector2D vec3(1, 5);
-	NumericalMethods::Vector::Vector2D vec4(5, 1);
+	VECTOR_TYPE vectors[] = { VECTOR_TYPE(0, 3, 4), VECTOR_TYPE(1, 0, 1), VECTOR_TYPE(1, 1, 3) };
 
-	std::cout << vec1.GetLength() << "\n";
-	std::cout << vec1.GetNormalized() << "\n";
-	std::cout << vec1 * 3 << "\n";
-	std::cout << 10 * vec1 << "\n";
-	std::cout << vec1 * vec2 << "\n";
+	VECTOR_TYPE* basis = GramSchmidt<VECTOR_TYPE>(vectors, n);
 
-	std::cout << NumericalMethods::Vector::CrossProduct(vec1, vec2) << "\n";
-	std::cout << (NumericalMethods::Vector::areOrthogonal(vec3, vec4) ? "true" : "false") << "\n";
+	for (int i = 0; i < n; i++) {
+		std::cout << basis[i] << "\n";
+	}
+
+	if (abs(DotProduct(basis[0], basis[1])) < NumericalMethods::c_epsilon) {
+		std::cout << "Wektory sa ortonormalne\n";
+	}
+
+	delete[] basis;
 }

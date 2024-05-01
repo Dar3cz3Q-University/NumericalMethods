@@ -1,6 +1,7 @@
 #include "Vector2D.h"
 
-namespace NumericalMethods::Vector {
+namespace NumericalMethods::Vector
+{
 	Vector2D::Vector2D(double x, double y) : m_X(x), m_Y(y) {};
 
 	Vector2D::~Vector2D() {};
@@ -9,7 +10,8 @@ namespace NumericalMethods::Vector {
 	{
 		double length = GetLength();
 
-		if (abs(length) < c_epsilon) {
+		if (abs(length) < c_epsilon)
+		{
 			return;
 		}
 
@@ -26,7 +28,8 @@ namespace NumericalMethods::Vector {
 	{
 		double length = GetLength();
 
-		if (abs(length) < c_epsilon) {
+		if (abs(length) < c_epsilon)
+		{
 			return Vector2D{};
 		}
 
@@ -56,11 +59,6 @@ namespace NumericalMethods::Vector {
 	double DotProduct(const Vector2D& l, const Vector2D& p)
 	{
 		return l.m_X * p.m_X + l.m_Y * p.m_Y;
-	}
-
-	Vector2D Projection(Vector2D& a, Vector2D& b) {
-		double value = (DotProduct(b, a) / pow(b.GetLength(), 2));
-		return b * value;
 	}
 
 	std::ostream& operator<<(std::ostream& os, const Vector2D& p)

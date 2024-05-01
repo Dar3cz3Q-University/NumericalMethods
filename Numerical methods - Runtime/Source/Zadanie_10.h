@@ -2,7 +2,7 @@
 #include "Numerical_Methods.h"
 #include "Vector/Vector2D.h"
 #include "Vector/Vector3D.h"
-#include "Orthogonalization/GramSchmidt.h"
+#include "Orthonormalization/GramSchmidt.h"
 
 #include "Benchmark/Timer.h"
 
@@ -13,20 +13,28 @@
 using namespace NumericalMethods::Vector;
 using namespace NumericalMethods::Orthonormalization;
 
-void zadanie10() {
+void zadanie10() 
+{
 	PROFILE_APP_FUNCTION();
 	int n = 3;
 
-	VECTOR_TYPE vectors[] = { VECTOR_TYPE(0, 3, 4), VECTOR_TYPE(1, 0, 1), VECTOR_TYPE(1, 1, 3) };
+	VECTOR_TYPE vectors[] = { 
+		VECTOR_TYPE(0, 3, 4), 
+		VECTOR_TYPE(1, 0, 1), 
+		VECTOR_TYPE(1, 1, 3) 
+	};
 
 	VECTOR_TYPE* basis = GramSchmidt<VECTOR_TYPE>(vectors, n);
 
-	for (int i = 0; i < n; i++) {
-		std::cout << basis[i] << "\n";
+	for (int i = 0; i < n; i++) 
+	{
+		std::cout << vectors[i] << "\n";
 	}
+	std::cout << "\n";
 
-	if (abs(DotProduct(basis[0], basis[1])) < NumericalMethods::c_epsilon) {
-		std::cout << "Wektory sa ortonormalne\n";
+	for (int i = 0; i < n; i++) 
+	{
+		std::cout << basis[i] << "\n";
 	}
 
 	delete[] basis;

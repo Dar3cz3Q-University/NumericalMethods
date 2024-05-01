@@ -12,7 +12,8 @@
 #include "Zadanie_9.h"
 #include "Zadanie_10.h"
 
-int main(int argc, int** argv) {
+int main(int argc, int** argv) 
+{
 	std::cout.precision(5);
 
 	zadanie10();

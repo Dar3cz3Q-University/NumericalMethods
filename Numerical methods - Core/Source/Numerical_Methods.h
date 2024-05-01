@@ -7,11 +7,12 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-#define ASSERT(x) if (!(x)) __debugbreak();
+#define CORE_ASSERT(x) if (!(x)) __debugbreak();
 
 namespace NumericalMethods {
 
-	struct Point {
+	struct Point
+	{
 		double x;
 		double y;
 		Point() : x(0), y(0) {};
@@ -27,7 +28,7 @@ namespace NumericalMethods {
 	/// <param name="a">Wskaznik do tablicy wspolczynnikow w postaci naturalnej</param>
 	/// <param name="n">Ilosc wspolczynnikow (stopien wielomianu + 1)</param>
 	/// <returns>Wartosc wielomianu</returns>
-	double horner(const double x, const double* a, const uint32_t n);
+	double horner(const double x, const double* a, uint32_t n);
 
 	/// <summary>
 	/// Funkcja obliczajaca wartosc wielomianu w postaci Newtona dla podanego x korzystajac ze schematu Hornera
@@ -37,7 +38,7 @@ namespace NumericalMethods {
 	/// <param name="xn">Wskaznik to tablicy wspolrzednych x punktow</param>
 	/// <param name="n">Ilosc wspolczynnikow (stopien wielomianu + 1)</param>
 	/// <returns>Wartosc wielomianu</returns>
-	double hornerN(const double x, const double* b, const double* xn, const uint32_t n);
+	double hornerN(const double x, const double* b, const double* xn, uint32_t n);
 
 	/// <summary>
 	/// Funkcja konwertujaca wspolczynniki w postaci Newtona na postac naturalna
@@ -46,7 +47,7 @@ namespace NumericalMethods {
 	/// <param name="x">Wskaznik to tablicy wspolrzednych x punktow</param>
 	/// <param name="n">Ilosc wspolczynnikow (stopien wielomianu + 1)</param>
 	/// <returns>Wskaznik do tablicy obliczonych wspolczynnikow</returns>
-	double* WspNew_WspNat(const double* b, const double* x, const uint32_t n);
+	double* WspNew_WspNat(const double* b, const double* x, uint32_t n);
 
 	/// <summary>
 	/// Funkcja obliczajaca interpolacje Lagranga
@@ -55,7 +56,7 @@ namespace NumericalMethods {
 	/// <param name="x">Wartosc x dla ktorej obliczamy wartosc</param>
 	/// <param name="n">Liczba wezlow interpolacji</param>
 	/// <returns>Obliczona wartosc funkcji w punkcie x</returns>
-	double lagrange(const Point* nodes, const double x, const uint32_t n);
+	double lagrange(const Point* nodes, const double x, uint32_t n);
 
 	/// <summary>
 	/// Funkcja obliczajaca interpolacje Newtona
@@ -63,7 +64,7 @@ namespace NumericalMethods {
 	/// <param name="nodes">Tablica zawierajacy wezly interpolacji. Wezel interpolacji to klasa Point</param>
 	/// <param name="n">Liczba wezlow interpolacji</param>
 	/// <returns>Wskaznik do tablicy obliczonych wspolczynnikow Newtona</returns>
-	double* newton(const Point* nodes, const uint32_t n);
+	double* newton(const Point* nodes, uint32_t n);
 
 	/// <summary>
 	/// Funkcja obliczajaca eliminacje Gaussa
@@ -72,7 +73,7 @@ namespace NumericalMethods {
 	/// <param name="b">Wskaznik do macierzy o wielkosci n zawierajacy wartosci wynikowe</param>
 	/// <param name="n">Liczba niewiadomych</param>
 	/// <returns>Wskaznik do tablicy obliczonych wartosci</returns>
-	double* gauss(const double* A, const double* b, const uint32_t n);
+	double* gauss(const double* A, const double* b, uint32_t n);
 
 	/// <summary>
 	/// Funkcja obliczajaca eliminacje Gaussa korzystajaca z Pivotingu
@@ -81,7 +82,7 @@ namespace NumericalMethods {
 	/// <param name="b">Wskaznik do macierzy o wielkosci n zawierajacy wartosci wynikowe</param>
 	/// <param name="n">Liczba niewiadomych</param>
 	/// <returns>Wskaznik do tablicy obliczonych wartosci</returns>
-	double* gauss_crout(const double* A, const double* b, const uint32_t n);
+	double* gauss_crout(const double* A, const double* b, uint32_t n);
 
 	/// <summary>
 	/// Funkcja dzielaca macierz A na dwie macierze trojkatne L i U
@@ -91,5 +92,5 @@ namespace NumericalMethods {
 	/// <param name="U">Wskaznik do macierzy w ktorej znajdzie sie macierz gornotrojkatna</param>
 	/// <param name="n">Wymiar macierzy</param>
 	/// <returns>false jesli nie mozna wyznaczyc rozkladu w przeciwnym wypadku true</returns>
-	bool doolittle(const double* A, double* L, double* U, const uint32_t n);
+	bool doolittle(const double* A, double* L, double* U, uint32_t n);
 } // namespace NumericalMethods

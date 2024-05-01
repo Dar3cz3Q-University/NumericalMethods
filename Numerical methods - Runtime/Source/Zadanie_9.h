@@ -7,7 +7,8 @@
 double func1(double x);	// x^2 * sin(x)^3
 double func2(double x); // exp(x^2) * (x - 1)
 
-void zadanie9_1() {
+void zadanie9_1() 
+{
 	PROFILE_APP_FUNCTION();
 	std::cout << "Funkcja 1\n";
 
@@ -18,13 +19,15 @@ void zadanie9_1() {
 
 	std::cout << "Poprawny wynik: " << correct_result << "\n";
 
-	for (int i = 2; i <= 5; i++) {
+	for (int i = 2; i <= 5; i++) 
+	{
 		std::cout << "n: " << i << "\n";
 		std::cout << "Gauss-Legendre: " << NumericalMethods::Integrals::gauss_Legendre(a, b, 10e-5, i, &func1) << "\n";
 	}
 }
 
-void zadanie9_2() {
+void zadanie9_2() 
+{
 	PROFILE_APP_FUNCTION();
 	std::cout << "Funkcja 2\n";
 
@@ -35,13 +38,15 @@ void zadanie9_2() {
 
 	std::cout << "Poprawny wynik: " << correct_result << "\n";
 
-	for (int i = 2; i <= 5; i++) {
+	for (int i = 2; i <= 5; i++) 
+	{
 		std::cout << "n: " << i << "\n";
 		std::cout << "Gauss-Legendre: " << NumericalMethods::Integrals::gauss_Legendre(a, b, 10e-6, i, &func2) << "\n";
 	}
 }
 
-void zadanie9_3() {
+void zadanie9_3() 
+{
 	PROFILE_APP_FUNCTION();
 	std::cout << "Funkcja 3\n";
 
@@ -62,7 +67,8 @@ void zadanie9_3() {
 
 //Grahamschmidt
 
-static void zadanie9() {
+static void zadanie9() 
+{
 	PROFILE_APP_FUNCTION();
 	zadanie9_1();
 	zadanie9_2();

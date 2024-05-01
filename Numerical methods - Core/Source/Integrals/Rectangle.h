@@ -1,7 +1,8 @@
 #pragma once
 #include <cstdint>
 
-namespace NumericalMethods::Integrals {
+namespace NumericalMethods::Integrals
+{
 	/// <summary>
 	/// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda prostokatow
 	/// </summary>
@@ -11,5 +12,5 @@ namespace NumericalMethods::Integrals {
 	/// <param name="variant">Wariant metody</param>
 	/// <param name="function">Wskaznik funkcji do calkowania</param>
 	/// <returns>Obliczona wartosc calki</returns>
-	double rectangle(const double x0, const double xn, const uint32_t n, const uint32_t variant, double (*function)(double));
+	double rectangle(const double x0, double xn, uint32_t n, uint32_t variant, double (*function)(double));
 } // namespace NumericalMethods::Integrals

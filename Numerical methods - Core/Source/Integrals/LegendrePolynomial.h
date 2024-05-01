@@ -3,30 +3,38 @@
 #include <math.h>
 #include <cstdint>
 
-namespace NumericalMethods {
-	class LegendrePolynomial {
+namespace NumericalMethods
+{
+	class LegendrePolynomial
+	{
 	public:
 		LegendrePolynomial() = default;
-		LegendrePolynomial(uint32_t n) : m_n(n), m_weight(nullptr), m_root(nullptr) {
+		LegendrePolynomial(uint32_t n) : m_n(n), m_weight(nullptr), m_root(nullptr)
+		{
 			m_weight = new double[m_n + 1];
 			m_root = new double[m_n + 1];
 			calculateWeightAndRoot();
 		}
 
-		~LegendrePolynomial() {
-			if (m_weight != nullptr) {
+		~LegendrePolynomial()
+		{
+			if (m_weight != nullptr)
+			{
 				delete[] m_weight;
 			}
-			if (m_root != nullptr) {
+			if (m_root != nullptr)
+			{
 				delete[] m_root;
 			}
 		}
 
-		double* getWeight() const {
+		double* getWeight() const
+		{
 			return m_weight;
 		}
 
-		double* getRoot() const {
+		double* getRoot() const
+		{
 			return m_root;
 		}
 
@@ -39,7 +47,8 @@ namespace NumericalMethods {
 
 		const double m_epsilon = 1e-15;
 
-		struct Result {
+		struct Result
+		{
 			double m_value;
 			double m_derivative;
 			Result() : m_value(0), m_derivative(0) {};

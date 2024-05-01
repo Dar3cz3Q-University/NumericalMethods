@@ -1,8 +1,10 @@
 #include "Simpson.h"
 #include "Benchmark/Timer.h"
 
-namespace NumericalMethods::Integrals {
-	double simpson(const double x0, const double xn, const uint32_t n, double (*function)(double)) {
+namespace NumericalMethods::Integrals
+{
+	double simpson(double x0, double xn, uint32_t n, double (*function)(double))
+	{
 		PROFILE_CORE_FUNCTION();
 		double result = 0.;
 		double h = (xn - x0) / n;
@@ -10,10 +12,12 @@ namespace NumericalMethods::Integrals {
 		double xi = 0.;
 		double temp = 0.;
 
-		for (uint32_t i = 1; i <= n; i++) {
+		for (uint32_t i = 1; i <= n; i++)
+		{
 			xi = x0 + i * h;
 			temp += function(xi - h * .5);
-			if (i < n) {
+			if (i < n)
+			{
 				result += function(xi);
 			}
 		}
@@ -23,17 +27,20 @@ namespace NumericalMethods::Integrals {
 		return result;
 	}
 
-	double simpson(const double a, const double b, const double h, double (*function)(double)) {
+	double simpson(double a, double b, double h, double (*function)(double))
+	{
 		PROFILE_CORE_FUNCTION();
 		double result = 0.;
 
 		double xi = 0.;
 		double temp = 0.;
 
-		for (double i = a; i <= b; i += h) {
+		for (double i = a; i <= b; i += h)
+		{
 			xi = i + h;
 			temp += function(xi - h * .5);
-			if (i < b) {
+			if (i < b)
+			{
 				result += function(xi);
 			}
 		}

@@ -1,7 +1,8 @@
 #pragma once
 #include <cstdint>
 
-namespace NumericalMethods::Integrals {
+namespace NumericalMethods::Integrals
+{
 	/// <summary>
 	/// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda trapezow
 	/// </summary>
@@ -10,7 +11,7 @@ namespace NumericalMethods::Integrals {
 	/// <param name="n">Dokladnosc</param>
 	/// <param name="function">Wskaznik funkcji do calkowania</param>
 	/// <returns>Obliczona wartosc calki</returns>
-	double trapeze(const double x0, const double xn, const uint32_t n, double (*function)(double));
+	double trapeze(double x0, double xn, uint32_t n, double (*function)(double));
 
 	/// <summary>
 	/// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda trapezow
@@ -20,5 +21,5 @@ namespace NumericalMethods::Integrals {
 	/// <param name="h">Wielkosc podzialu</param>
 	/// <param name="function">Wskaznik funkcji do calkowania</param>
 	/// <returns>Obliczona wartosc calki</returns>
-	double trapeze(const double a, const double b, const double h, double (*function)(double));
+	double trapeze(double a, double b, double h, double (*function)(double));
 } // namespace NumericalMethods::Integrals

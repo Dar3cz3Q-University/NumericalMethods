@@ -1,8 +1,10 @@
 #include "LegendrePolynomial.h"
 #include "Benchmark/Timer.h"
 
-namespace NumericalMethods {
-	void LegendrePolynomial::recalculateWeightAndRoot(uint32_t n) {
+namespace NumericalMethods
+{
+	void LegendrePolynomial::recalculateWeightAndRoot(uint32_t n)
+	{
 		m_n = n;
 
 		// Delete old data
@@ -16,15 +18,18 @@ namespace NumericalMethods {
 		calculateWeightAndRoot();
 	}
 
-	void LegendrePolynomial::calculateWeightAndRoot() {
+	void LegendrePolynomial::calculateWeightAndRoot()
+	{
 		PROFILE_CORE_FUNCTION();
-		for (unsigned int i = 0; i <= m_n; i++) {
+		for (unsigned int i = 0; i <= m_n; i++)
+		{
 			double root = cos(M_PI * (i - .25) / (m_n + .5));
 			Result result = calculatePolynomialValueAndDerivative(root);
 
 			double newtonRaphsonRatio;
 
-			do {
+			do
+			{
 				newtonRaphsonRatio = result.m_value / result.m_derivative;
 				root -= newtonRaphsonRatio;
 				result = calculatePolynomialValueAndDerivative(root);
@@ -35,13 +40,15 @@ namespace NumericalMethods {
 		}
 	}
 
-	LegendrePolynomial::Result LegendrePolynomial::calculatePolynomialValueAndDerivative(double x) {
+	LegendrePolynomial::Result LegendrePolynomial::calculatePolynomialValueAndDerivative(double x)
+	{
 		Result result(x, 0);
 
 		double value_minus_1 = 1.;
 		const double f = 1. / (x * x - 1.);
 
-		for (unsigned int i = 2; i <= m_n; i++) {
+		for (unsigned int i = 2; i <= m_n; i++)
+		{
 			const double value = ((2 * i - 1) * x * result.m_value - (i - 1) * value_minus_1) / i;
 			result.m_derivative = i * f * (x * value - result.m_value);
 

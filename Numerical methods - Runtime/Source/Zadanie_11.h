@@ -12,9 +12,15 @@ static void zadanie11() {
 
 	double** result = NumericalMethods::Orthonormalization::GramSchmidt(a, b, n);
 
-	for (uint32_t i = 0; i < n; i++) {
-		for (uint32_t j = 0; j < n; j++) {
-			std::cout << result[i][j] << "\t";
+	for (uint32_t i = n; i > 0; i--) std::cout << "\t" << "x^" << (i - 1);
+	std::cout << "\n";
+	for (uint32_t i = 0; i < n; i++) 
+	{
+		std::cout << "G" << i << "\t";
+		for (uint32_t j = 0; j < n; j++) 
+		{
+			if (result[i][j] != 0) std::cout << result[i][j];
+			std::cout << "\t";
 		}
 		std::cout << "\n";
 	}

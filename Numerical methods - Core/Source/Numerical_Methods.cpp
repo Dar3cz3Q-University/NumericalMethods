@@ -115,7 +115,7 @@ namespace NumericalMethods
 		{
 			for (uint32_t j = i + 1; j < n; j++)
 			{
-				if (fabs(AB[(i * ts) + i]) < c_epsilon)
+				if (fabs(AB[(i * ts) + i]) < EPSILON)
 					return nullptr;
 
 				m = -AB[(j * ts) + i] / AB[(i * ts) + i];
@@ -139,7 +139,7 @@ namespace NumericalMethods
 				s -= AB[(i * ts) + j] * x[j];
 			}
 
-			if (fabs(AB[(i * ts) + i]) < c_epsilon)
+			if (fabs(AB[(i * ts) + i]) < EPSILON)
 				return nullptr;
 
 			x[i] = s / AB[(i * ts) + i];
@@ -188,7 +188,7 @@ namespace NumericalMethods
 
 			for (uint32_t j = i + 1; j < n; j++)
 			{
-				if (fabs(AB[(i * ts) + w[i]]) < c_epsilon)
+				if (fabs(AB[(i * ts) + w[i]]) < EPSILON)
 					return nullptr;
 
 				m = -AB[(j * ts) + w[i]] / AB[(i * ts) + w[i]];
@@ -206,7 +206,7 @@ namespace NumericalMethods
 
 		for (uint32_t i = n - 1; i >= 0; i--)
 		{
-			if (fabs(AB[(i * ts) + w[i]]) < c_epsilon)
+			if (fabs(AB[(i * ts) + w[i]]) < EPSILON)
 				return nullptr;
 
 			s = AB[(i * ts) + n];
@@ -274,7 +274,7 @@ namespace NumericalMethods
 					sum += L[(j * n) + k] * U[(k * n) + i];
 				}
 
-				if (fabs(U[(i * n) + i]) < c_epsilon)
+				if (fabs(U[(i * n) + i]) < EPSILON)
 					return false;
 
 				L[(j * n) + i] = (A[(w[j] * n) + i] - sum) / U[(i * n) + i];

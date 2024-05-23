@@ -8,13 +8,14 @@
 
 #include "Numerical_Methods.h"
 
-#define VECTOR_TYPE Vector3D
+#define VECTOR_TYPE NumericalMethods::Vector::Vector3D
 
-using namespace NumericalMethods::Vector;
-using namespace NumericalMethods::Orthonormalization;
 
 void zadanie10() 
 {
+	using namespace NumericalMethods::Vector;
+	using namespace NumericalMethods::Orthonormalization;
+
 	PROFILE_APP_FUNCTION();
 	int n = 3;
 

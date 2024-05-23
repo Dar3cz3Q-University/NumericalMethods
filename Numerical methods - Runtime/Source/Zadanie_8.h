@@ -59,7 +59,7 @@ static void zadanie8_2()
 
 double func3(double x) 
 {
-	if (fabs(x) < NumericalMethods::c_epsilon)
+	if (fabs(x) < NumericalMethods::EPSILON)
 		return 0;
 
 	return (sin(x) / x);
@@ -89,7 +89,7 @@ static void zadanie8_3()
 
 double func4(double x) 
 {
-	if (fabs(x) < NumericalMethods::c_epsilon) 
+	if (fabs(x) < NumericalMethods::EPSILON) 
 		return 0;
 	
 	return (sin(1 / x));

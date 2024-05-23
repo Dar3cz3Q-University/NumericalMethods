@@ -10,7 +10,7 @@ namespace NumericalMethods::Vector
 	{
 		double length = GetLength();
 
-		if (abs(length) < c_epsilon)
+		if (abs(length) < EPSILON)
 		{
 			return;
 		}
@@ -28,7 +28,7 @@ namespace NumericalMethods::Vector
 	{
 		double length = GetLength();
 
-		if (abs(length) < c_epsilon)
+		if (abs(length) < EPSILON)
 		{
 			return Vector2D{};
 		}

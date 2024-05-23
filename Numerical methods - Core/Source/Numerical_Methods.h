@@ -19,7 +19,7 @@ namespace NumericalMethods {
 		Point(double x, double y) : x(x), y(y) {};
 	};
 
-	const double c_epsilon = 1e-15;
+	inline const double EPSILON = 1e-15;
 
 	/// <summary>
 	/// Funkcja obliczajaca wartosc wielomianu w postaci naturalnej dla podanego x korzystajac ze schematu Hornera

@@ -21,6 +21,19 @@ namespace NumericalMethods::Integrals
 	double gauss_Legendre5(const double* w1, const double* w2, double x0, double xn, double h, uint32_t w);
 
 	/// <summary>
+	/// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda Gauss-Legendre.
+	/// Funkcja zawsze oblicza przyblizenie przy stopniu wielomianu Legendra rownego 4
+	/// </summary>
+	/// <param name="w1">Wskaznik do tablicy wspolczynnikow 1 wielomianu</param>
+	/// <param name="function">Wskaznik do funkcji</param>
+	/// <param name="x0">Poczatek przedzialu calkowania</param>
+	/// <param name="xn">Koniec przedzialu calkowania</param>
+	/// <param name="h">Dokladnosc</param>
+	/// <param name="w">Ilosc wspolczynnikow (stopien wielomianu + 1)</param>
+	/// <returns>Obliczona wartosc calki</returns>
+	double gauss_Legendre5(const double* w1, double (*function)(double), double x0, double xn, double h, uint32_t w);
+
+	/// <summary>
 	/// Funkcja obliczajaca przyblizenie calek oznaczonych. Metoda Gauss-Legendre
 	/// </summary>
 	/// <param name="x0">Poczatek przedzialu calkowania</param>

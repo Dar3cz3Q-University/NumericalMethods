@@ -4,7 +4,7 @@
 
 namespace NumericalMethods::Matrix
 {
-	void print(const double* matrix, uint32_t n)
+	void Print(const double* matrix, uint32_t n)
 	{
 		if (matrix == nullptr)
 		{
@@ -22,7 +22,7 @@ namespace NumericalMethods::Matrix
 		}
 	}
 
-	double* copy(const double* matrix, uint32_t n)
+	double* Copy(const double* matrix, uint32_t n)
 	{
 		if (matrix == nullptr)
 		{
@@ -43,7 +43,7 @@ namespace NumericalMethods::Matrix
 		return result;
 	}
 
-	double* multiply(const double* matrix1, const double* matrix2, uint32_t n)
+	double* Multiply(const double* matrix1, const double* matrix2, uint32_t n)
 	{
 		if (matrix1 == nullptr || matrix2 == nullptr)
 		{
@@ -70,7 +70,7 @@ namespace NumericalMethods::Matrix
 		return result;
 	}
 
-	bool areEqual(const double* matrix1, const double* matrix2, uint32_t n)
+	bool AreEqual(const double* matrix1, const double* matrix2, uint32_t n)
 	{
 		if (matrix1 == nullptr || matrix2 == nullptr)
 		{

@@ -5,15 +5,15 @@ namespace NumericalMethods
 {
 	void LegendrePolynomial::recalculateWeightAndRoot(uint32_t n)
 	{
-		m_n = n;
+		m_N = n;
 
 		// Delete old data
-		delete[] m_weight;
-		delete[] m_root;
+		delete[] m_Weight;
+		delete[] m_Root;
 
 		// Create new place
-		m_weight = new double[m_n + 1];
-		m_root = new double[m_n + 1];
+		m_Weight = new double[m_N + 1];
+		m_Root = new double[m_N + 1];
 
 		calculateWeightAndRoot();
 	}
@@ -21,22 +21,22 @@ namespace NumericalMethods
 	void LegendrePolynomial::calculateWeightAndRoot()
 	{
 		PROFILE_CORE_FUNCTION();
-		for (unsigned int i = 0; i <= m_n; i++)
+		for (unsigned int i = 0; i <= m_N; i++)
 		{
-			double root = cos(M_PI * (i - .25) / (m_n + .5));
+			double root = cos(M_PI * (i - .25) / (m_N + .5));
 			Result result = calculatePolynomialValueAndDerivative(root);
 
 			double newtonRaphsonRatio;
 
 			do
 			{
-				newtonRaphsonRatio = result.m_value / result.m_derivative;
+				newtonRaphsonRatio = result.Value / result.Derivative;
 				root -= newtonRaphsonRatio;
 				result = calculatePolynomialValueAndDerivative(root);
-			} while (fabs(newtonRaphsonRatio) > m_epsilon);
+			} while (fabs(newtonRaphsonRatio) > c_Epsilon);
 
-			m_root[i] = root;
-			m_weight[i] = 2. / ((1. - root * root) * result.m_derivative * result.m_derivative);
+			m_Root[i] = root;
+			m_Weight[i] = 2. / ((1. - root * root) * result.Derivative * result.Derivative);
 		}
 	}
 
@@ -47,13 +47,13 @@ namespace NumericalMethods
 		double value_minus_1 = 1.;
 		const double f = 1. / (x * x - 1.);
 
-		for (unsigned int i = 2; i <= m_n; i++)
+		for (unsigned int i = 2; i <= m_N; i++)
 		{
-			const double value = ((2 * i - 1) * x * result.m_value - (i - 1) * value_minus_1) / i;
-			result.m_derivative = i * f * (x * value - result.m_value);
+			const double value = ((2 * i - 1) * x * result.Value - (i - 1) * value_minus_1) / i;
+			result.Derivative = i * f * (x * value - result.Value);
 
-			value_minus_1 = result.m_value;
-			result.m_value = value;
+			value_minus_1 = result.Value;
+			result.Value = value;
 		}
 
 		return result;

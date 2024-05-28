@@ -2,6 +2,9 @@
 #include "Vector/Vector2D.h"
 #include "Vector/Vector3D.h"
 #include "Integrals/Gauss.h"
+#include "Polynomial.h"
+
+#include "Benchmark/Timer.h"
 
 namespace NumericalMethods::Orthonormalization
 {

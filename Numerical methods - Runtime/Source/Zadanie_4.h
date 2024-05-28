@@ -12,7 +12,7 @@ static void zadanie4()
 	points[4] = NumericalMethods::Point(2, 2);
 
 	std::ofstream file;
-	file.open("Lagrange_Results.txt");
+	file.open("Res/Lagrange_Results.txt");
 
 	for (double i = -2; i <= 2.01; i += 0.01)
 	{

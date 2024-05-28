@@ -24,14 +24,14 @@ static void zadanie7()
 	else 
 	{
 		std::cout << "Macierz gornotrojkatna:\n";
-		NumericalMethods::Matrix::print(U, n);
+		NumericalMethods::Matrix::Print(U, n);
 
 		std::cout << "Macierz dolnotrojkatna:\n";
-		NumericalMethods::Matrix::print(L, n);
+		NumericalMethods::Matrix::Print(L, n);
 	}
 
-	check = NumericalMethods::Matrix::multiply(L, U, n);
-	std::cout << (NumericalMethods::Matrix::areEqual(A1, check, n) ? "Rozklad poprawny" : "Cos poszlo nie tak");
+	check = NumericalMethods::Matrix::Multiply(L, U, n);
+	std::cout << (NumericalMethods::Matrix::AreEqual(A1, check, n) ? "Rozklad poprawny" : "Cos poszlo nie tak");
 
 	delete[] A1;
 	delete[] check;
@@ -50,14 +50,14 @@ static void zadanie7()
 	else 
 	{
 		std::cout << "Macierz gornotrojkatna:\n";
-		NumericalMethods::Matrix::print(U, n);
+		NumericalMethods::Matrix::Print(U, n);
 
 		std::cout << "Macierz dolnotrojkatna:\n";
-		NumericalMethods::Matrix::print(L, n);
+		NumericalMethods::Matrix::Print(L, n);
 	}
 
-	check = NumericalMethods::Matrix::multiply(L, U, n);
-	std::cout << (NumericalMethods::Matrix::areEqual(A2, check, n) ? "Rozklad poprawny" : "Cos poszlo nie tak");
+	check = NumericalMethods::Matrix::Multiply(L, U, n);
+	std::cout << (NumericalMethods::Matrix::AreEqual(A2, check, n) ? "Rozklad poprawny" : "Cos poszlo nie tak");
 
 	delete[] A2;
 	delete[] check;
@@ -76,10 +76,10 @@ static void zadanie7()
 	else 
 	{
 		std::cout << "Macierz gornotrojkatna:\n";
-		NumericalMethods::Matrix::print(U, n);
+		NumericalMethods::Matrix::Print(U, n);
 
 		std::cout << "Macierz dolnotrojkatna:\n";
-		NumericalMethods::Matrix::print(L, n);
+		NumericalMethods::Matrix::Print(L, n);
 	}
 	delete[] A3;
 

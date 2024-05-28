@@ -1,6 +1,7 @@
 # Directories
 .vs/
 Binaries/
+Numerical methods - Runtime/Res
 
 # Files
 *.vcxproj

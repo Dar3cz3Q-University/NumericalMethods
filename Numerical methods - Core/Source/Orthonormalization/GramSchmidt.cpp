@@ -2,8 +2,10 @@
 
 namespace NumericalMethods::Orthonormalization
 {
+	// TODO: Rewrite function to use smart pointers
     double** GramSchmidt(double a, double b, uint32_t n)
 	{
+		PROFILE_CORE_FUNCTION();
 		double** resultBase = new double* [n];
 		double** standardBase = new double* [n];
 
@@ -27,14 +29,20 @@ namespace NumericalMethods::Orthonormalization
 
 			for (uint32_t j = 0; j < i; j++)
 			{
-				double numerator = NumericalMethods::Integrals::gauss_Legendre5(standardBase[i], resultBase[j], a, b, 1e-5, n);
-				double denominator = NumericalMethods::Integrals::gauss_Legendre5(resultBase[j], resultBase[j], a, b, 1e-5, n);
-				double coef = numerator / denominator;
+				double coef = NumericalMethods::Polynomial::DotProductCoef(standardBase[i], resultBase[j], a, b, n);
 
-				for (uint32_t k = 0; k < n; k++) tempVector[k] += coef * resultBase[j][k];
+				double* multipliedVector = new double[n] { 0 };
+
+				memcpy(multipliedVector, resultBase[j], n * sizeof(double));
+
+				NumericalMethods::Polynomial::Multiply(multipliedVector, coef, n);
+
+				NumericalMethods::Polynomial::Add(tempVector, multipliedVector, n);
+
+				delete[] multipliedVector;
 			}
 
-			for (uint32_t j = 0; j < n; j++) resultBase[i][j] -= tempVector[j];
+			NumericalMethods::Polynomial::Subtract(resultBase[i], tempVector, n);
 
 			delete[] tempVector;
 		}

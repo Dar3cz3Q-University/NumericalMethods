@@ -8,7 +8,7 @@ namespace NumericalMethods::Matrix
 	/// </summary>
 	/// <param name="matrix">Wskaznik do macierzy</param>
 	/// <param name="n">Wymiar macierzy</param>
-	void print(const double* matrix, uint32_t n);
+	void Print(const double* matrix, uint32_t n);
 
 	/// <summary>
 	/// Funkcja do kopiowania macierzy
@@ -16,7 +16,7 @@ namespace NumericalMethods::Matrix
 	/// <param name="matrix">Wskaznik do macierzy</param>
 	/// <param name="n">Wymiar macierzy</param>
 	/// <returns>Wskaznik do nowej macierzy</returns>
-	double* copy(const double* matrix, uint32_t n);
+	double* Copy(const double* matrix, uint32_t n);
 
 	/// <summary>
 	/// Funkcja do mnozenia macierzy kwadratowych
@@ -25,7 +25,7 @@ namespace NumericalMethods::Matrix
 	/// <param name="matrix2">Wskaznik do macierzy</param>
 	/// <param name="n">Wymiar macierzy</param>
 	/// <returns>Wskaznik do nowej macierzy</returns>
-	double* multiply(const double* matrix1, const double* matrix2, uint32_t n);
+	double* Multiply(const double* matrix1, const double* matrix2, uint32_t n);
 
 	/// <summary>
 	/// Funkcja do sprawdzenia czy macierze sa sobie rowne
@@ -34,5 +34,5 @@ namespace NumericalMethods::Matrix
 	/// <param name="matrix2">Wskaznik do drugiej macierzy</param>
 	/// <param name="n">Wymiar macierzy</param>
 	/// <returns>True, macierze sa takie same, w przeciwnym wypadku false</returns>
-	bool areEqual(const double* matrix1, const double* matrix2, uint32_t n);
+	bool AreEqual(const double* matrix1, const double* matrix2, uint32_t n);
 } // namespace NumericalMethods::Matrix

@@ -13,12 +13,11 @@
 #include "Zadanie_10.h"
 #include "Zadanie_11.h"
 #include "Zadanie_12.h"
+#include "Zadanie_13.h"
 
 int main(int argc, int** argv) 
 {
-	std::cout.precision(5);
+	std::cout.precision(10);
 
-	zadanie12();
-
-	return 0;
+	zadanie13();
 }

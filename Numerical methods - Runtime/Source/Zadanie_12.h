@@ -9,7 +9,8 @@ static double test(double x)
 	return sin(-x) + exp(-x) - pow(x, 3);
 }
 
-static void zadanie12() {
+static void zadanie12() 
+{
 	PROFILE_APP_FUNCTION();
 
 	double a = 0.0, b = 1.0;

@@ -100,6 +100,51 @@ namespace NumericalMethods::Integrals
 		return result;
 	}
 
+	double gauss_Legendre(double x0, double xn, double y0, double yn, double h, uint32_t n, double(*function)(double, double))
+	{
+		PROFILE_CORE_FUNCTION();
+		static uint32_t prev_n = n;
+		static LegendrePolynomial polynomial(n);
+
+		if (prev_n != n)
+		{
+			polynomial.recalculateWeightAndRoot(n);
+			prev_n = n;
+		}
+
+		double* weights = polynomial.getWeight();
+		double* roots = polynomial.getRoot();
+
+		double result{}, width_x{}, mean_x{}, width_y{}, mean_y{}, x1{}, x2{}, y1{}, y2{};
+
+		for (double a = x0; a <= xn; a += h)
+		{
+			x1 = a;
+			x2 = a + h;
+
+			width_x = (x2 - x1) * .5;
+			mean_x = (x1 + x2) * .5;
+
+			for (double b = y0; b <= yn; b += h)
+			{
+				y1 = b;
+				y2 = b + h;
+
+				width_y = (y2 - y1) * .5;
+				mean_y = (y1 + y2) * .5;
+
+				for (uint32_t j = 1; j <= n; j++) for (uint32_t k = 1; k <= n; k++)
+					result += weights[j] * weights[k] * function(width_x * roots[j] + mean_x, width_y * roots[k] + mean_y);
+			}
+		}
+
+		result *= (width_x * width_y);
+
+		CORE_ASSERT(!isinf(result));
+
+		return result;
+	}
+
 	// TODO: Dodac dokladnosc z jaka liczymy tzn. h
 	double gauss_Kronrod(double a, double b, uint32_t n, double(*function)(double))
 	{

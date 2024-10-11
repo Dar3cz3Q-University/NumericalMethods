@@ -11,10 +11,11 @@
 #include "GramSchmidtFunction.h"
 #include "Approximation.h"
 #include "EulerRungeKutta.h"
+#include "GaussPlane.h"
 
 int main(int argc, int** argv) 
 {
 	std::cout.precision(10);
 
-	zadanie13();
+	check_surface_integral();
 }

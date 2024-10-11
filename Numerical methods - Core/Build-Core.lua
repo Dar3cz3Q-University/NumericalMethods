@@ -5,7 +5,13 @@ project "Numerical methods - Core"
    targetdir "Binaries/%{cfg.buildcfg}"
    staticruntime "off"
 
-   files { "Source/**.h", "Source/**.cpp" }
+   files 
+   { 
+    "Source/**.h",
+    "Source/**.cpp",
+    "Util/**.h",
+    "Util/**.cpp" 
+   }
 
    includedirs
    {

@@ -12,7 +12,7 @@ workspace "Numerical methods"
     OutputDir = "%{cfg.system}-%{cfg.architecture}/%{cfg.buildcfg}"
     
     group "Core"
-        include "Numerical methods - Core/Build-Core.lua"
+        include "Numerical methods - Core/premake5.lua"
     group ""
     
-    include "Numerical methods - Runtime/Build-Runtime.lua"
+    include "Numerical methods - Runtime/premake5.lua"

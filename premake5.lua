@@ -11,8 +11,10 @@ workspace "Numerical methods"
 
     OutputDir = "%{cfg.system}-%{cfg.architecture}/%{cfg.buildcfg}"
     
-    group "Core"
-        include "Numerical methods - Core/premake5.lua"
+    group "Dependencies"
+        include "Dependencies/googletest/googletest/premake5.lua"
     group ""
-    
+
+    include "Numerical methods - Core/premake5.lua"
     include "Numerical methods - Runtime/premake5.lua"
+    include "Numerical methods - Tests/premake5.lua"

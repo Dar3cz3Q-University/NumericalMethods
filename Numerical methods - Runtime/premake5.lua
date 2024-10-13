@@ -2,33 +2,30 @@ project "Numerical methods - Runtime"
    kind "ConsoleApp"
    language "C++"
    cppdialect "C++20"
-   targetdir "Binaries/%{cfg.buildcfg}"
    staticruntime "off"
+   targetdir ("%{_WORKING_DIR}/Binaries/" .. OutputDir .. "/%{prj.name}")
+   objdir ("%{_WORKING_DIR}/Binaries/Intermediates/" .. OutputDir .. "/%{prj.name}")
 
-   files 
-   { 
+   flags {
+    "MultiProcessorCompile"
+   }
+
+   files { 
     "Source/**.h",
     "Source/**.cpp",
     "Util/**.h",
     "Util/**.cpp" 
    }
 
-   includedirs
-   {
+   includedirs {
       "Source",
       "Util",
-
-	  -- Include Core
 	  "../Numerical methods - Core/Source"
    }
 
-   links
-   {
+   links {
       "Numerical methods - Core"
    }
-
-   targetdir ("../Binaries/" .. OutputDir .. "/%{prj.name}")
-   objdir ("../Binaries/Intermediates/" .. OutputDir .. "/%{prj.name}")
 
    filter "system:windows"
        systemversion "latest"

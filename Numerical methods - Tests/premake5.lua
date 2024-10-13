@@ -1,5 +1,5 @@
-project "Numerical methods - Core"
-   kind "StaticLib"
+project "Numerical methods - Tests"
+   kind "ConsoleApp"
    language "C++"
    cppdialect "C++20"
    staticruntime "off"
@@ -11,20 +11,22 @@ project "Numerical methods - Core"
    }
 
    files { 
-    "Source/**.h",
-    "Source/**.cpp",
-    "Util/**.h",
-    "Util/**.cpp" 
+    "Tests/**.cpp"
    }
 
    includedirs {
-    "Source",
-    "Util"
+    "../Numerical methods - Core/Source",
+	"../Dependencies/googletest/googletest/include"
+   }
+
+   links {
+    "Numerical methods - Core",
+    "GoogleTest"
    }
 
    filter "system:windows"
        systemversion "latest"
-       defines { }
+       defines { "WINDOWS" }
 
    filter "configurations:Debug"
        defines { "DEBUG" }
@@ -36,3 +38,4 @@ project "Numerical methods - Core"
        runtime "Release"
        optimize "On"
        symbols "On"
+       

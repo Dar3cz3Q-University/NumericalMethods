@@ -9,6 +9,8 @@
 #include "Approximation/Approximation.h"
 #include "DifferentialEquations/DifferentialEquations.h"
 
+#include "Integrals/UnitQuadrature.h"
+
 #define VECTOR_TYPE NumericalMethods::Vector::Vector3D
 
 double func1(double x)

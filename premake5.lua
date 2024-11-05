@@ -4,7 +4,7 @@ workspace "Numerical methods"
         "Debug",
         "Release"
     }
-    startproject "Numerical methods - Runtime"
+    startproject "NumericalMethods_Runtime"
 
     filter "system:windows"
         buildoptions { "/EHsc", "/Zc:preprocessor", "/Zc:__cplusplus" }

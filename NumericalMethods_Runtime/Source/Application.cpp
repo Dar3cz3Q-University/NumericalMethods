@@ -1,6 +1,6 @@
 ﻿#include "Numerical_Methods.h"
 
-#include "matrix/Matrix.h"
+#include "Matrix/Matrix.h"
 #include "Integrals/Trapeze.h"
 #include "Integrals/Simpson.h"
 #include "Vector/Vector2D.h"

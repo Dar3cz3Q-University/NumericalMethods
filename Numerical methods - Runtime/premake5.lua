@@ -1,4 +1,4 @@
-project "Numerical methods - Runtime"
+project "NumericalMethods_Runtime"
    kind "ConsoleApp"
    language "C++"
    cppdialect "C++20"

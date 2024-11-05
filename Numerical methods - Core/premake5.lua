@@ -1,4 +1,4 @@
-project "Numerical methods - Core"
+project "NumericalMethods_Core"
    kind "StaticLib"
    language "C++"
    cppdialect "C++20"

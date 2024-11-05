@@ -1,4 +1,4 @@
-project "Numerical methods - Tests"
+project "NumericalMethods_Tests"
    kind "ConsoleApp"
    language "C++"
    cppdialect "C++20"

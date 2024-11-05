@@ -7,7 +7,16 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-#define CORE_ASSERT(x) if (!(x)) __debugbreak();
+#ifdef _MSC_VER
+    #define DEBUG_BREAK() __debugbreak()
+#elif defined(__GNUC__) || defined(__clang__)
+    #include <csignal>
+    #define DEBUG_BREAK() raise(SIGTRAP)
+#else
+    #define DEBUG_BREAK()
+#endif
+
+#define CORE_ASSERT(x) if (!(x)) DEBUG_BREAK();
 
 namespace NumericalMethods {
 

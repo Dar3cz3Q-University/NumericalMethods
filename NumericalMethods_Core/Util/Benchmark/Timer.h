@@ -22,9 +22,8 @@ public:
 
 private:
 	const char* m_Name;
-	std::chrono::time_point<std::chrono::steady_clock> m_StartTimePoint;
+	std::chrono::steady_clock::time_point m_StartTimePoint;
 	bool m_Stopped;
 
 	void Stop();
 };
-

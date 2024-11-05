@@ -1,4 +1,4 @@
-project "NumericalMethods_Tests"
+project "NumericalMethods_Runtime"
    kind "ConsoleApp"
    language "C++"
    cppdialect "C++20"
@@ -11,17 +11,18 @@ project "NumericalMethods_Tests"
    }
 
    files { 
-    "Tests/**.cpp"
+    "**.h",
+    "**.cpp"
    }
 
    includedirs {
-    "../Numerical methods - Core/Source",
-	"../Dependencies/googletest/googletest/include"
+      "Source",
+      "Util",
+	  "../NumericalMethods_Core/Source"
    }
 
    links {
-    "Numerical methods - Core",
-    "GoogleTest"
+      "NumericalMethods_Core"
    }
 
    filter "system:windows"

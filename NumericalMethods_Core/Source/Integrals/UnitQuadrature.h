@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <cstdint>
 #include <vector>
+#include <math.h>
 
 namespace NumericalMethods::Integrals::Unit
 {

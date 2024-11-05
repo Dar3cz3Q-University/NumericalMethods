@@ -1,5 +1,7 @@
 # Numerical methods
 
+[![Tests Status](https://github.com/Dar3cz3Q-University/NumericalMethods/actions/workflows/ci.yml/badge.svg)](https://github.com/Dar3cz3Q-University/NumericalMethods/tree/master)
+
 Selected numerical methods implemented.
 
 ---

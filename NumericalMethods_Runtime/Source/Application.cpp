@@ -1,6 +1,6 @@
 ﻿#include "Numerical_Methods.h"
 
-#include "matrix/Matrix.h"
+#include "Matrix/Matrix.h"
 #include "Integrals/Trapeze.h"
 #include "Integrals/Simpson.h"
 #include "Vector/Vector2D.h"
@@ -51,7 +51,7 @@ static double stefanBoltzmann(double t)
 
 // TODO Split tasks to other .cpp files
 
-int main(int argc, int** argv) 
+int main(int argc, char** argv) 
 {
 	std::cout.precision(10);
 

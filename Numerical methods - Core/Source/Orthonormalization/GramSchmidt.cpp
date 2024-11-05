@@ -1,4 +1,5 @@
 #include "GramSchmidt.h"
+#include <cstring>
 
 namespace NumericalMethods::Orthonormalization
 {

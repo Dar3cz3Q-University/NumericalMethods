@@ -22,7 +22,7 @@ jobs:
     - name: Install Clang
       run: sudo apt-get install -y clang
 
-    - name: Generate Makefile with Premake
+    - name: Generate Makefile with Premake5
       run: |
         chmod +x ./Scripts/Setup-Linux.sh
         ./Scripts/Setup-Linux.sh
